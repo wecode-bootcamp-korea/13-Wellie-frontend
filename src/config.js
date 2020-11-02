@@ -1,1 +1,1 @@
-const hi = "hi";
+export const LOCALHOST = "http://localhost:3000";
