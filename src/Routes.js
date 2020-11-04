@@ -1,9 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Main from "./Pages/Main/Main";
+import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./Styles/GlobalStyle";
 import { theme } from "./Styles/Theme";
-import { ThemeProvider } from "styled-components";
+// import Main from "./Pages/Main/Main";
+import Login from "./Pages/Login/Login";
+import Join from "./Pages/Login/Join";
 
 class Routes extends React.Component {
   render() {
@@ -13,7 +15,8 @@ class Routes extends React.Component {
         <GlobalStyle />
         <Router>
           <Switch>
-            <Route exact path="/" component={Main} />
+            <Route exact path="/" component={Login} />
+            <Route exact path="/join" component={Join} />
           </Switch>
         </Router>
       </React.Fragment>

@@ -1,2 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom";
+export default function Today() {
+  return <div>Today</div>;
+}
