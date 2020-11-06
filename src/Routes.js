@@ -4,6 +4,7 @@ import Main from "./Pages/Main/Main";
 import Login from "./Pages/Login/Login";
 import Join from "./Pages/Login/Join";
 import Today from "./Pages/Today/Today";
+import MyBooks from "./Pages/MyBooks/MyBooks";
 import Nav from "./Components/Nav/Nav";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./Styles/Theme";
@@ -18,10 +19,19 @@ class Routes extends React.Component {
           <Router>
             <Switch>
               <Route exact path="/" component={Main} />
-              <Route exact path="/Login" component={Login} />
-              <Route exact path="/join" component={Join} />
-              <Nav />
-              <Route exact path="/Today" component={Today} />
+              <Route path="/Login" component={Login} />
+              <Route path="/join" component={Join} />
+              <Route
+                exact
+                path="*"
+                component={() => (
+                  <>
+                    <Nav component={Nav} />
+                    <Route path="/Today" component={Today} />
+                    <Route path="/MyBooks" component={MyBooks} />
+                  </>
+                )}
+              />
             </Switch>
           </Router>
         </ThemeProvider>

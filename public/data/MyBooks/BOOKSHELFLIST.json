@@ -1,0 +1,14 @@
+{
+  "bookShelfCount": 33,
+  "myBookShelfList" : [
+    {
+      "id" : 1,
+      "bookShelfCount" : 1,
+      "bookShelfName" : "책장이름1",
+      "bookPreviewImg" : [
+        "https://img.millie.co.kr/200x/service/cover/15722753/bd4ce30e6d7b438bbdfd81a732d1b0a8.jpg",
+        "https://img.millie.co.kr/400x/service/cover/179480526/30abd91c69e042b1b2f43499581d32dd.jpg"
+      ]
+    }
+  ]
+}
