@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AiOutlineBell } from "react-icons/ai";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -77,6 +77,7 @@ const NavBar = styled.nav`
   top: 0;
   background: #fff;
   border-bottom: 1px solid #eee;
+  z-index: 99;
 `;
 
 const CommonContainer = styled.div`

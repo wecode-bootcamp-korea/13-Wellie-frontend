@@ -1,0 +1,11 @@
+{
+  "mybooksInfo" : {
+    "id": 1,
+    "myBooksName" : "유저1의 서재",
+    "userName" : "유저1",
+    "readBooks" : 1,
+    "follower" : 2,
+    "following" : 3,
+    "booksCount" : 4
+  }
+}
