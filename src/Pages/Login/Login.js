@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import SocialPlatforms from "./SocialPlatforms";
 import { loginImagesArr } from "./loginImagesData";
 
@@ -67,12 +68,40 @@ class Login extends Component {
     });
   };
 
-  validateAndGoToToday = () => {
+  validateAndGoToToday = async () => {
     const { userCell, userPw } = this.state;
-    if (userCell.length >= 10 && userPw.length >= 5) {
-      this.props.history.push("/today");
-    } else {
-      alert("휴대폰 번호 10-11자, 비밀번호 5자 이상 입력해주세요.");
+    const validateLoginAPI = "http://10.58.7.192:8000/user/login";
+    try {
+      const res = await fetch(validateLoginAPI, {
+        method: "POST",
+        body: JSON.stringify({
+          userType: 1,
+          userCell: userCell,
+          password: userPw,
+        }),
+      });
+      const data = await res.json();
+      if (data.MESSAGE === "SUCCESS") {
+        Swal.fire({
+          icon: "success",
+          iconColor: "rgba(164, 81, 247, 1)",
+          text: "Welcome to Wellie",
+          showConfirmButton: false,
+          timer: 1600,
+        });
+        setTimeout(() => {
+          this.props.history.push("/today");
+        }, 2000);
+      } else {
+        Swal.fire({
+          icon: "warning",
+          iconColor: "rgba(252, 235, 96, 1)",
+          text:
+            "휴대폰번호/비밀번호가 올바르지 않습니다. 확인 후 다시 로그인 해주세요.",
+        });
+      }
+    } catch (err) {
+      alert("POST Error");
     }
   };
 
@@ -138,7 +167,7 @@ class Login extends Component {
             <Or>또는</Or>
             <SocialPlatforms />
             <LoginJoinLinkContainer>
-              <Link className="Link" to="/join">
+              <Link className="Link" to="/signup">
                 <li className="signup">회원가입</li>
               </Link>
               <span>|</span>
