@@ -1,11 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Main from "./Pages/Main/Main";
+import { ThemeProvider } from "styled-components";
+import WellieMain from "./Pages/WellieMain/WellieMain";
 import Login from "./Pages/Login/Login";
 import Join from "./Pages/Login/Join";
 import Today from "./Pages/Today/Today";
 import Nav from "./Components/Nav/Nav";
-import { ThemeProvider } from "styled-components";
+import Search from "./Pages/Search/Search";
+import SearchResult from "./Pages/Search/SearchResult";
 import { theme } from "./Styles/Theme";
 import GlobalStyle from "./Styles/GlobalStyle";
 
@@ -17,11 +19,22 @@ class Routes extends React.Component {
           <GlobalStyle />
           <Router>
             <Switch>
-              <Route exact path="/" component={Main} />
+              <Route exact path="/" component={WellieMain} />
               <Route exact path="/Login" component={Login} />
               <Route exact path="/join" component={Join} />
-              <Nav />
-              <Route exact path="/Today" component={Today} />
+
+              <Route
+                exact
+                path="*"
+                component={() => (
+                  <>
+                    <Nav component={Nav} />
+                    <Route path="/Today" component={Today} />
+                    <Route exact path="/search" component={Search} />
+                    <Route path="/search/result" component={SearchResult} />
+                  </>
+                )}
+              />
             </Switch>
           </Router>
         </ThemeProvider>
