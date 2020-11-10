@@ -1,0 +1,213 @@
+{
+  "LEFTSTRINGS": [
+    {
+      "bigStr": ["", "당신의", "소중한", "일상."],
+      "smallStr": ["", "더 가치있는 것", "들로", "채워볼까요?"]
+    },
+    {
+      "bigStr": ["", "모두의", "취향을", "만족시키는"],
+      "smallStr": ["", "10만 권", "의 전자책 중", "골라읽어요"]
+    },
+    {
+      "bigStr": ["", "가끔은", "가볍고", "재밌는"],
+      "smallStr": ["콘텐츠도", "즐기고", "싶으니까!", ""]
+    },
+    {
+      "bigStr": ["아직", "독서가", "어려운", "당신을 위한"],
+      "smallStr": ["", "쉽고 재밌는", "", "독서법으로 읽어요"]
+    },
+    {
+      "bigStr": ["", "종이책의", "감성도", "놓치기 싫다면"],
+      "smallStr": ["", "함께 구독", "할 수", "있어요"]
+    }
+  ],
+  "BOOKCOVERS": [
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    },
+    {
+      "cover": "https://image.yes24.com/goods/61933303/800x0"
+    }
+  ],
+  "PRICECARDSTRINGS": [
+    {
+      "firstLineBold": "전자책",
+      "firstLineNormal": "",
+      "secondLineNormal": "무제한 구독",
+      "thirdLineBold": "밀리의 서재",
+      "monthPrice": "9,900",
+      "yearPrice": "99,000",
+      "originalPrice": "118,800",
+      "description1": "연 정기구독시, 3개월 무료 꼴"
+    },
+    {
+      "firstLineBold": "종이책",
+      "firstLineNormal": "까지",
+      "secondLineNormal": "소장하는",
+      "thirdLineBold": "밀리 오리지널",
+      "monthPrice": "15,900",
+      "yearPrice": "183,000",
+      "originalPrice": "202,800",
+      "description1": "무료 구독 기간에는 전자책 무제한"
+    }
+  ]
+}
