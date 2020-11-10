@@ -7,7 +7,7 @@ import { PostList } from "./Components/PostList";
 import { StatsList } from "./Components/StatsList";
 import { Modal } from "./Components/Modal";
 import { FilterModal } from "./Components/FilterModal";
-import { LIBRARY, LOCALHOST } from "../../config";
+import { API, TOKEN, LIBRARY, DEFALT_MYBOOKS_BACKGROUND } from "../../config";
 import { commonContainer, theme, positionCenter } from "../../Styles/Theme";
 import { userProfileImg } from "./Components/Style";
 
@@ -21,30 +21,48 @@ function MyBooks() {
   const [bookShelfCase, setBookShelfCase] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [filterListOpen, setFilterListOpen] = useState(false);
+  const [filterRead, setFilterRead] = useState("");
+  const [filterType, setFilterType] = useState("register");
 
   useEffect(() => {
-    fetch(`${LOCALHOST}/data/MyBooks/MYBOOKSINFO.json`)
+    fetch(`${API}/library`, {
+      headers: {
+        Authorization: TOKEN,
+      },
+    })
       .then((res) => res.json())
       .then((res) => {
         setMyBooksInfo(res.mybooksInfo);
       });
 
-    fetch(`${LOCALHOST}/data/MyBooks/BOOKLIST.json`)
+    fetch(`${API}/library/mybook`, {
+      headers: {
+        Authorization: TOKEN,
+      },
+    })
       .then((res) => res.json())
       .then((res) => {
         setBookList(res);
         setBookListSearch(res);
       });
 
-    fetch(`${LOCALHOST}/data/MyBooks/BOOKSHELFLIST.json`)
+    fetch(`${API}/library/shelf`, {
+      headers: {
+        Authorization: TOKEN,
+      },
+    })
       .then((res) => res.json())
       .then((res) => {
         setbookShelfListCard(res);
       });
   }, []);
 
-  const handleClickBookShelfList = () => {
-    fetch(`${LOCALHOST}/data/MyBooks/BOOKSHELFCASE.json`)
+  const handleClickBookShelfList = (id) => {
+    fetch(`${API}/library/shelfdetail?shelf_id=${id}`, {
+      headers: {
+        Authorization: TOKEN,
+      },
+    })
       .then((res) => res.json())
       .then((res) => {
         setBookShelfCase(res);
@@ -63,6 +81,41 @@ function MyBooks() {
     }
   };
 
+  const handleClickBookShelfDelete = (id) => {
+    fetch(`${API}/library/shelf?shelf_id=${id}`, {
+      method: "delete",
+      headers: {
+        Authorization: TOKEN,
+      },
+    }).then((res) => {
+      if (res.status === 204) {
+        const newArray = [...bookShelfListCard.myBookShelfList];
+        const filterItem = newArray.filter((item) => item.id !== id);
+
+        setbookShelfListCard({
+          bookShelfCount: (bookShelfListCard.bookShelfCount =
+            bookShelfListCard.bookShelfCount - 1),
+          myBookShelfList: filterItem,
+        });
+        alert("책장을 삭제했습니다.");
+      } else {
+        alert("책장 삭제를 실패했습니다.");
+      }
+    });
+  };
+
+  const handleClickBookListSort = () => {
+    fetch(`${API}/library/mybook?sort=${filterType}&read=${filterRead}`, {
+      headers: {
+        Authorization: TOKEN,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setBookList(res);
+      });
+  };
+
   const content = {
     0: (
       <BookList
@@ -76,6 +129,7 @@ function MyBooks() {
       <BookShelf
         bookShelfListCard={bookShelfListCard}
         handleClickBookShelfList={handleClickBookShelfList}
+        handleClickBookShelfDelete={handleClickBookShelfDelete}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
@@ -90,6 +144,9 @@ function MyBooks() {
       <FilterModal
         filterListOpen={filterListOpen}
         setFilterListOpen={setFilterListOpen}
+        handleClickBookListSort={handleClickBookListSort}
+        setFilterRead={setFilterRead}
+        setFilterType={setFilterType}
       />
       <TopBanner>
         <BgEditWrap>
@@ -100,7 +157,7 @@ function MyBooks() {
         <UserInfo>
           <UserProfile>
             <div>
-              <img src="/images/Mybooks/user.png" alt="유저 기본 아이콘" />
+              <img src={myBooksInfo?.profile} alt="유저 기본 아이콘" />
             </div>
             <MyBookName>{myBooksInfo?.myBooksName}</MyBookName>
             <UserName>{myBooksInfo?.userName}</UserName>
@@ -137,9 +194,7 @@ function MyBooks() {
               <LibraryMenu
                 key={item.id}
                 active={item.id === menuTab}
-                onClick={() => {
-                  setMenuTab(item.id);
-                }}
+                onClick={() => setMenuTab(item.id)}
               >
                 <span>{item.content}</span>
               </LibraryMenu>
@@ -174,8 +229,7 @@ export const EditBtn = styled.button`
 const TopBanner = styled.header`
   position: relative;
   min-height: 440px;
-  background: url("https://images.unsplash.com/photo-1493219686142-5a8641badc78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80")
-    no-repeat center 100%;
+  background: url(${DEFALT_MYBOOKS_BACKGROUND}) no-repeat center 100%;
   text-align: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -1,3 +1,5 @@
+export const API = "http://10.58.7.192:8000";
+
 export const LOCALHOST = "http://localhost:3000";
 export const BEAPIROOT = "http://10.58.7.192:8000";
 export const API_BOOK = "http://10.58.7.192:8000/book";
@@ -10,6 +12,9 @@ export const LIBRARY = [
   { id: 2, content: "포스트" },
   { id: 3, content: "통계" },
 ];
+
+export const DEFALT_MYBOOKS_BACKGROUND =
+  "https://images.unsplash.com/photo-1493219686142-5a8641badc78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
 
 export const COMPLETED_BTN_IMG = "https://i.ibb.co/wSDskYv/shhhh.png";
 

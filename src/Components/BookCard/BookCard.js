@@ -4,7 +4,7 @@ import styled from "styled-components";
 export function BookCardSixcolum({ id, bookCoverImg, bookName, writer }) {
   return (
     <Card key={id} colum="6">
-      <Link to="/">
+      <Link to={`/book_details/${id}`}>
         <img src={bookCoverImg} alt="도서 책커버" />
         <h5>{bookName}</h5>
         <p>
@@ -20,7 +20,7 @@ export function BookCardSixcolum({ id, bookCoverImg, bookName, writer }) {
 export function BookCardEightcolum({ id, bookCoverImg, bookName, writer }) {
   return (
     <Card key={id} colum="8">
-      <Link to="/">
+      <Link to={`/book_details/${id}`}>
         <img src={bookCoverImg} alt="도서 책커버" />
         <h5>{bookName}</h5>
         <p>
@@ -51,8 +51,12 @@ export const Card = styled.div`
 
   h5 {
     margin: 10px 0 5px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
     font-weight: 600;
     font-size: 16px;
+    text-overflow: ellipsis;
     color: #111;
   }
 

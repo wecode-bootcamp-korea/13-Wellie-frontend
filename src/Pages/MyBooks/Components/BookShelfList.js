@@ -3,33 +3,35 @@ import { useState } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { positionCenter } from "../../../Styles/Theme";
 
-export function BookShelfList({ bookShelfListCard, handleClickBookShelfList }) {
+export function BookShelfList({
+  bookShelfListCard,
+  handleClickBookShelfList,
+  handleClickBookShelfDelete,
+}) {
   const [modify, setModify] = useState(0);
+  const [modifyToggle, setModifyToggle] = useState(false);
+
+  const handleClickModifyToggle = (id) => {
+    setModify(id);
+    setModifyToggle(!modifyToggle);
+  };
 
   return (
     bookShelfListCard.myBookShelfList &&
     bookShelfListCard.myBookShelfList.map((item) => (
       <List key={item.id} id={item.id}>
         <EditWrap>
-          <EditBtn
-            onClick={() => {
-              setModify(item.id);
-            }}
-          >
+          <EditBtn onClick={() => handleClickModifyToggle(item.id)}>
             <HiOutlineDotsVertical />
           </EditBtn>
-          <Modify active={item.id === modify}>
+          <Modify active={item.id === modify && modifyToggle}>
             <ul>
               <li>수정</li>
-              <li>삭제</li>
+              <li onClick={() => handleClickBookShelfDelete(item.id)}>삭제</li>
             </ul>
           </Modify>
         </EditWrap>
-        <div
-          onClick={() => {
-            handleClickBookShelfList();
-          }}
-        >
+        <div onClick={() => handleClickBookShelfList(item.id)}>
           <BookShelfBackground>
             <BookCoverWrap>
               {item.bookPreviewImg.map((item) => {
