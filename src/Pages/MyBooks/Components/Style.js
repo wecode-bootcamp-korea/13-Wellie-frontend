@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { commonContainer } from "../../../Styles/Theme";
+import { Link } from "react-router-dom";
+import { commonContainer, theme } from "../../../Styles/Theme";
 
 export const userProfileImg = css`
   display: block;
@@ -41,7 +42,12 @@ export const SortingBtns = styled.button`
   background: none;
   font-size: 22px;
   color: rgba(0, 0, 0, 0.5);
+  transition: 0.35s ease;
   cursor: pointer;
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.85);
+  }
 `;
 
 export const BtnsWrap = styled.ul`
@@ -56,6 +62,7 @@ export const InputWrap = styled.li`
   margin: 0 15px 0 0;
   padding: 5px 15px;
   border-radius: 50px;
+  border: 1px solid #ddd;
 
   input {
     width: 100%;
@@ -95,4 +102,28 @@ export const SubmitBtn = styled.button`
   font-size: 16px;
   color: #fff;
   cursor: pointer;
+`;
+
+export const AddBookShelf = styled(Link)`
+  display: inline-block;
+  padding: 12px 20px 10px;
+  background: #fff;
+  border: 1px solid ${theme.purple};
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  color: ${theme.purple};
+  cursor: pointer;
+
+  &:hover {
+    background: ${theme.purple};
+    color: #fff;
+  }
+
+  span {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 20px;
+    vertical-align: middle;
+  }
 `;

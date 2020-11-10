@@ -3,7 +3,13 @@ import { GoSettings } from "react-icons/go";
 import { BiSortUp } from "react-icons/bi";
 import { ModalBackground, SubmitBtn } from "./Style";
 
-export function FilterModal({ filterListOpen, setFilterListOpen }) {
+export function FilterModal({
+  filterListOpen,
+  setFilterListOpen,
+  setFilterRead,
+  setFilterType,
+  handleClickBookListSort,
+}) {
   return (
     <Wrapper active={filterListOpen === true}>
       {filterListOpen && <ModalBackground />}
@@ -18,12 +24,18 @@ export function FilterModal({ filterListOpen, setFilterListOpen }) {
               id="all"
               type="radio"
               name="bookFilter"
+              onClick={() => setFilterRead("")}
             />
             <CheckIcon />
             <FilterLabel htmlFor="all">전체 도서</FilterLabel>
           </InputWrap>
           <InputWrap>
-            <FilterInput id="read" type="radio" name="bookFilter" />
+            <FilterInput
+              id="read"
+              type="radio"
+              name="bookFilter"
+              onClick={() => setFilterRead("read")}
+            />
             <CheckIcon />
             <FilterLabel htmlFor="read">읽은 도서</FilterLabel>
           </InputWrap>
@@ -36,6 +48,7 @@ export function FilterModal({ filterListOpen, setFilterListOpen }) {
               id="date"
               type="radio"
               name="categoryFilter"
+              onClick={() => setFilterType("register")}
             />
             <FilterLabel htmlFor="date">서재등록 순으로 정렬</FilterLabel>
             <SortIcon>
@@ -43,14 +56,24 @@ export function FilterModal({ filterListOpen, setFilterListOpen }) {
             </SortIcon>
           </InputWrap>
           <InputWrap>
-            <CategoryInput id="subject" type="radio" name="categoryFilter" />
+            <CategoryInput
+              id="subject"
+              type="radio"
+              name="categoryFilter"
+              onClick={() => setFilterType("title")}
+            />
             <FilterLabel htmlFor="subject">제목 순으로 정렬</FilterLabel>
             <SortIcon>
               <BiSortUp />
             </SortIcon>
           </InputWrap>
           <InputWrap>
-            <CategoryInput id="day" type="radio" name="categoryFilter" />
+            <CategoryInput
+              id="day"
+              type="radio"
+              name="categoryFilter"
+              onClick={() => setFilterType("published")}
+            />
             <FilterLabel htmlFor="day">발행 순으로 정렬</FilterLabel>
             <SortIcon>
               <BiSortUp />
@@ -60,6 +83,7 @@ export function FilterModal({ filterListOpen, setFilterListOpen }) {
         <SubmitBtn
           onClick={() => {
             setFilterListOpen(false);
+            handleClickBookListSort();
           }}
         >
           확인

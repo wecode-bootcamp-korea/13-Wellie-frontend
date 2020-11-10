@@ -4,7 +4,7 @@ export function ModalContent({ bookShelfCase }) {
   return (
     <>
       {bookShelfCase.bookShelfCase &&
-        bookShelfCase.bookShelfCase.books.map((item) => (
+        bookShelfCase.bookShelfCase.map((item) => (
           <BookCardSixcolum
             id={item.id}
             key={item.id}
