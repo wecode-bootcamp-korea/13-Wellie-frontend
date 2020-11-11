@@ -1,0 +1,35 @@
+{
+  "BOOK": [{
+      "book_name":"주식 투자자의 시선",
+      "book_img": "https://img.millie.co.kr/400x/service/cover/179479858/cb0aa8c982944918b415e49fcea7e5c2.jpg",
+      "book_author": "박영옥"
+  },{
+    "book_name":"주식투자 안내서",
+    "book_img": "https://img.millie.co.kr/200x/service/cover/179471112/9ffade7f3d8049aa89dea56d8c8a82fd.jpg",
+    "book_author": "김희수"
+},{
+  "book_name":"주식 투자자의 시선",
+  "book_img": "https://img.millie.co.kr/400x/service/cover/179479858/cb0aa8c982944918b415e49fcea7e5c2.jpg",
+  "book_author": "박영옥"
+},{
+"book_name":"주식투자 안내서",
+"book_img": "https://img.millie.co.kr/200x/service/cover/179471112/9ffade7f3d8049aa89dea56d8c8a82fd.jpg",
+"book_author": "김희수"
+},{
+  "book_name":"주식 투자자의 시선",
+  "book_img": "https://img.millie.co.kr/400x/service/cover/179479858/cb0aa8c982944918b415e49fcea7e5c2.jpg",
+  "book_author": "박영옥"
+},{
+"book_name":"주식투자 안내서",
+"book_img": "https://img.millie.co.kr/200x/service/cover/179471112/9ffade7f3d8049aa89dea56d8c8a82fd.jpg",
+"book_author": "김희수"
+},{
+  "book_name":"주식 투자자의 시선",
+  "book_img": "https://img.millie.co.kr/400x/service/cover/179479858/cb0aa8c982944918b415e49fcea7e5c2.jpg",
+  "book_author": "박영옥"
+},{
+"book_name":"주식투자 안내서",
+"book_img": "https://img.millie.co.kr/200x/service/cover/179471112/9ffade7f3d8049aa89dea56d8c8a82fd.jpg",
+"book_author": "김희수"
+}]
+}

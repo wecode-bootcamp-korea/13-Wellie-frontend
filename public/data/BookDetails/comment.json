@@ -1,0 +1,15 @@
+{
+  "COMMENT": [{
+      "user_id": 1,
+      "user_name":"핑퐁화이팅1099",
+      "user_comment": "와아 너무너무 재미지다요",
+      "user_img": "https://secure.gravatar.com/avatar/64c49b6f852ad598fd9f6ad571a663a8?s=1024&d=mm&r=g",
+      "date": "2020.09.02"
+  },{
+    "user_id": 2,
+    "user_name":"안녕하세인생아름다워",
+    "user_comment": "지금 시기에 아주 적절한 책을 읽은 것 같아서 감명 깊었습니다 :)",
+    "user_img": "https://ofbxchnhqinp910256.cdn.ntruss.com/100/1fd3e2940ed1cca333bedc6510c0eb74.jpg?type=w&w=160&quality=100",
+    "date": "2020.09.02"
+}]
+}
