@@ -1,8 +1,10 @@
 import { css } from "styled-components";
 
 export const theme = {
-  yellow: "rgb(252,235,96)",
-  purple: "rgb(164, 81, 247)",
+  yellow: "rgba(252, 235, 96, 1)",
+  purple: "rgba(164, 81, 247, 1)",
+  yellowOpacity: "rgba(252, 235, 96, 0.5)",
+  purpleOpacity: "rgba(164, 81, 247, 0.5)",
 };
 
 export const commonContainer = css`

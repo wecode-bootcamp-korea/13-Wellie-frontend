@@ -23,3 +23,13 @@ export const SAVE_BTN_IMG =
 
 export const DEFAULT_IMG =
   "https://secure.gravatar.com/avatar/64c49b6f852ad598fd9f6ad571a663a8?s=1024&d=mm&r=g";
+
+export const VALIDATE_LOGIN_API = "http://10.58.7.192:8000/user/login";
+export const VALIDATE_SIGNUP_API = "http://10.58.7.192:8000/user/signup";
+export const USER_CELL_CHECK_API = "http://10.58.7.192:8000/user/message";
+export const PHONE_VALIDATE_CODE_CHECK_API =
+  "http://10.58.7.192:8000/user/messagecheck";
+export const SUBSCRIPTION_API = "http://10.58.7.192:8000/user/subscription";
+export const CHECK_NICKNAME_API =
+  "http://10.58.7.192:8000/user/check?nickname=";
+export const KAKAO_LOGIN_API = "http://10.58.7.192:8000/user/login/social";
