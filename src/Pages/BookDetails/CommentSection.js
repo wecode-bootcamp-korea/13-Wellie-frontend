@@ -49,7 +49,7 @@ function CommentSection() {
   };
 
   useEffect(() => {
-    fetch("/data/BookDetails/comment.json")
+    fetch("http://10.58.7.192:8000/book/1/comment")
       .then((res) => res.json())
       .then((res) => setComments(res.COMMENT));
   }, []);
@@ -64,15 +64,23 @@ function CommentSection() {
       </div>
       <CommentList isActiveMoreBtn={isActiveMoreBtn}>
         {comments.map(
-          ({ user_id, user_name, user_comment, user_img, date }) => (
+          ({
+            comment_id,
+            user_name,
+            user_comment,
+            user_img,
+            date,
+            likebutton,
+          }) => (
             <Comment
               onRemove={onRemove}
-              id={user_id}
-              key={user_id}
+              id={comment_id}
+              key={comment_id}
               userName={user_name}
               userComment={user_comment}
               userImg={user_img}
               date={date}
+              likeBtn={likebutton}
             />
           )
         )}

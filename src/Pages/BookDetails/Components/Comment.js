@@ -15,7 +15,15 @@ export default function Comment({
   return (
     <Container id={id}>
       <li>
-        <img className="user" alt="userImg" src={userImg} />
+        <img
+          className="user"
+          alt="userImg"
+          src={
+            userImg === null
+              ? "https://secure.gravatar.com/avatar/64c49b6f852ad598fd9f6ad571a663a8?s=1024&d=mm&r=g"
+              : { userImg }
+          }
+        />
         <div className="commentBox">
           <p>{userName}</p>
           <span>{date}</span>

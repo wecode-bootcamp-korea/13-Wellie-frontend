@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { COMPLETED_BTN_IMG, SAVE_BTN_IMG } from "../../config";
 
-function Aside({ isSaved, setIsSaved, onSave }) {
+function Aside({ isSaved, setIsSaved, onSave, saveBtn }) {
   return (
     <AsideContainer>
       <Container>
         <ul>
-          <Menu isSaved={isSaved} setIsSaved={setIsSaved}>
+          <Menu saveBtn={saveBtn} isSaved={isSaved} setIsSaved={setIsSaved}>
             <img alt="save" src={isSaved ? COMPLETED_BTN_IMG : SAVE_BTN_IMG} />
             <button onClick={onSave}>
-              {isSaved ? "담기 완료" : "내 서재에 담기"}
+              {saveBtn ? "담기 완료" : "내 서재에 담기"}
             </button>
           </Menu>
           <Menu>
@@ -48,7 +48,7 @@ const Container = styled.aside`
 
 const Menu = styled.li`
   height: 47px;
-  width: 256px;
+  width: 280px;
   background-color: transparent;
   border-bottom: 1px solid rgb(223, 223, 223);
   padding-left: 25px;

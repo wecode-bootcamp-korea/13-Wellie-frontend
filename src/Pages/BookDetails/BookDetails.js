@@ -21,7 +21,7 @@ function BookDetails() {
   };
 
   useEffect(() => {
-    fetch("/data/BookDetails/data.json")
+    fetch("http://10.58.7.192:8000/book/1")
       .then((res) => res.json())
       .then((res) => setData(res.MESSAGE));
   }, []);
@@ -58,11 +58,7 @@ function BookDetails() {
                 src="https://cdn2.iconfinder.com/data/icons/essential-web-4/50/angle-down-arrow-direction-bottom-512.png"
               />
             </div>
-            <ContentsContainer
-            //  dangerouslySetInnerHTML={{ __html: "text" }}
-            >
-              {data.contents}
-            </ContentsContainer>
+            <ContentsContainer>{data.contents}</ContentsContainer>
           </ContentSection>
           <CommentSection />
           <Banner>
@@ -81,7 +77,12 @@ function BookDetails() {
             </RecommendBooks>
           </RecommendBookContainer>
         </article>
-        <Aside isSaved={isSaved} setIsSaved={setIsSaved} onSave={onSave} />
+        <Aside
+          saveBtn={data.savebutton}
+          isSaved={isSaved}
+          setIsSaved={setIsSaved}
+          onSave={onSave}
+        />
         <Modal isActiveModal={isActiveModal}>
           {isSaved ? "내 서재에 담겼습니다" : "담기 취소되었습니다"}
         </Modal>
