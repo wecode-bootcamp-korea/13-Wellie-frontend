@@ -7,6 +7,7 @@ import Join from "./Pages/Login/Join";
 import Today from "./Pages/Today/Today";
 import MyBooks from "./Pages/MyBooks/MyBooks";
 import Nav from "./Components/Nav/Nav";
+import BookDetails from "./Pages/BookDetails/BookDetails";
 import { theme } from "./Styles/Theme";
 import GlobalStyle from "./Styles/GlobalStyle";
 
@@ -21,6 +22,7 @@ class Routes extends React.Component {
               <Route exact path="/" component={WellieMain} />
               <Route path="/Login" component={Login} />
               <Route path="/join" component={Join} />
+              <Route exact path="/BookDetails" component={BookDetails} />
               <Route
                 exact
                 path="*"
