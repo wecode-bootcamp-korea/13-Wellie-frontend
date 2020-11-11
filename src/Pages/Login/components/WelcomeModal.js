@@ -11,7 +11,7 @@ export default function WelcomeModal(props) {
           <ToSubscribeButton onClick={() => history.push("/subscribe")}>
             구독하러 가기
           </ToSubscribeButton>
-          <ToLoginButton onClick={() => history.push("/today")}>
+          <ToLoginButton onClick={() => history.push("/home")}>
             메인으로 가기
           </ToLoginButton>
         </ButtonsContainer>

@@ -109,7 +109,9 @@ export default function SearchResult(props) {
           </ul>
         </BookContainer>
       </ContentBody>
-    </}
+    </SearchResultPage>
+  );
+}
 
 const SearchResultPage = styled.div`
   position: relative;

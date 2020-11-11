@@ -59,7 +59,7 @@ function Nav() {
             <BlackBtn
               onClick={() => {
                 localStorage.removeItem("Authorization");
-                history.push("/Login");
+                history.push("/login");
               }}
             >
               로그아웃

@@ -72,7 +72,9 @@ class Login extends Component {
 
   chooseActionAfterLogin = (isUserSubscribed) => {
     if (isUserSubscribed) {
-      this.props.history.push("/today");
+      setTimeout(() => {
+        this.props.history.push("/home");
+      }, 2000);
     } else {
       setTimeout(() => {
         this.setState({

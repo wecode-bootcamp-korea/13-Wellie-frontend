@@ -4,11 +4,29 @@ import styled from "styled-components";
 import Swal from "sweetalert2";
 import { randomNNData } from "../data/randomNNData";
 import { agreementItemsSignup } from "../data/agreementItemsSignup";
-import { VALIDATE_SIGNUP_API, CHECK_NICKNAME_API } from "../../../config";
+import {
+  VALIDATE_SIGNUP_API,
+  VALIDATE_SOCIAL_SIGNUP_API,
+  CHECK_NICKNAME_API,
+} from "../../../config";
 
 export default function SetAccount(props) {
   const history = useHistory();
   const location = useLocation();
+
+  const userCell =
+    location.state.userCell !== (null || undefined)
+      ? location.state.userCell
+      : null;
+  const socialToken =
+    location.state.socialToken !== (null || undefined)
+      ? location.state.socialToken
+      : null;
+  const userTypeSocial =
+    location.state.userType !== (null || undefined)
+      ? location.state.userType
+      : null;
+  const isSocialSignup = Boolean(socialToken);
 
   const [pwInput, setPwInput] = useState("");
   const [rePwInput, setRePwInput] = useState("");
@@ -154,7 +172,9 @@ export default function SetAccount(props) {
 
   const areAllInputsValid =
     isPwValid && isPwMatched && isNickNameChecked && isIdNumValid;
-  const isAllValid = areAllInputsValid && isAllMandatoryChecked;
+  const isAllValid = isSocialSignup
+    ? isNickNameChecked && isAllMandatoryChecked
+    : areAllInputsValid && isAllMandatoryChecked;
   // const isAllValid = true;
 
   const goToLogin = () => {
@@ -163,15 +183,26 @@ export default function SetAccount(props) {
 
   const validateSignup = async () => {
     try {
-      const res = await fetch(VALIDATE_SIGNUP_API, {
-        method: "POST",
-        body: JSON.stringify({
-          userType: 1,
-          userCell: location.state.userCell,
-          nickName: nickNameInput,
-          password: pwInput,
-        }),
-      });
+      const res = isSocialSignup
+        ? await fetch(VALIDATE_SOCIAL_SIGNUP_API, {
+            method: "POST",
+            headers: {
+              Authorization: socialToken,
+            },
+            body: JSON.stringify({
+              userType: userTypeSocial,
+              nickName: nickNameInput,
+            }),
+          })
+        : await fetch(VALIDATE_SIGNUP_API, {
+            method: "POST",
+            body: JSON.stringify({
+              userType: 1,
+              userCell: userCell,
+              nickName: nickNameInput,
+              password: pwInput,
+            }),
+          });
       const data = await res.json();
       if (data.MESSAGE === "SUCCESS") {
         Swal.fire({
@@ -213,9 +244,14 @@ export default function SetAccount(props) {
         </PwHeading>
         <PwInputForm isPwValid={isPwValid} isPwMatched={isPwMatched}>
           <EnterPw
-            placeholder="비밀번호 입력"
+            placeholder={
+              Boolean(socialToken)
+                ? "소셜 로그인 - 비밀번호 불필"
+                : "비밀번호 입력"
+            }
             value={pwInput}
             onChange={handlePwInput}
+            isSocialSignup={Boolean(socialToken)}
           />
           <EnterPwChecker isPwValid={isPwValid}>
             {isPwValid
@@ -223,9 +259,14 @@ export default function SetAccount(props) {
               : "영문 대/소문자, 숫자를 포함한 8~16자 조합으로 입력해주세요"}
           </EnterPwChecker>
           <ReEnterPw
-            placeholder="비밀번호 재입력"
+            placeholder={
+              Boolean(socialToken)
+                ? "소셜 로그인 - 비밀번호 불필"
+                : "비밀번호 입력"
+            }
             value={rePwInput}
             onChange={handlePwInput}
+            isSocialSignup={Boolean(socialToken)}
           />
           <ReEnterPwChecker isPwMatched={isPwMatched}>
             {isPwMatched ? "비밀번호 일치" : "비밀번호가 일치하지 않습니다"}
@@ -264,12 +305,14 @@ export default function SetAccount(props) {
               placeholder="YYMMDD"
               value={idFrontInput}
               onChange={handleIdNumInput}
+              isSocialSignup={Boolean(socialToken)}
             ></IdFrontInput>
             <p>-</p>
             <IdBackInput
               placeholder=""
               value={idBackInput}
               onChange={handleIdNumInput}
+              isSocialSignup={Boolean(socialToken)}
             ></IdBackInput>
             <IdBackRemainder>
               <li></li>
@@ -308,6 +351,7 @@ export default function SetAccount(props) {
           onClick={validateSignup}
           areAllInputsValid={areAllInputsValid}
           isAllValid={isAllValid}
+          isSocialSignup={Boolean(socialToken)}
         >
           가입 완료
         </SignupButton>
@@ -342,7 +386,7 @@ const SetAccountContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 75vh;
+  height: 80vh;
   padding: 30px 0;
   position: relative;
   overflow: auto;
@@ -384,6 +428,7 @@ const EnterPw = styled.input.attrs((props) => ({
   type: "password",
   name: "pwInput",
   maxLength: "16",
+  disabled: props.isSocialSignup,
 }))`
   width: 610px;
   height: 36px;
@@ -416,6 +461,7 @@ const ReEnterPw = styled(EnterPw).attrs((props) => ({
   type: "password",
   name: "rePwInput",
   maxLength: "16",
+  disabled: props.isSocialSignup,
 }))`
   background: "#eee";
 `;
@@ -648,14 +694,22 @@ const SignupButton = styled.button.attrs((props) => ({
   padding: 10px 0;
   font-weight: 700;
   font-size: 16px;
-  ${({ theme, areAllInputsValid, isAllValid }) => {
-    if (!areAllInputsValid) {
-      return `color: #000; background: ${theme.yellowOpacity};`;
-    } else {
+  ${({ theme, areAllInputsValid, isAllValid, isSocialSignup }) => {
+    if (isSocialSignup) {
       if (isAllValid) {
         return `color: #fff; background: ${theme.purple}; cursor: pointer;`;
       } else {
-        return `color: #ededed; background: ${theme.purpleOpacity};`;
+        return `color: #000; background: ${theme.yellowOpacity};`;
+      }
+    } else {
+      if (!areAllInputsValid) {
+        return `color: #000; background: ${theme.yellowOpacity};`;
+      } else {
+        if (isAllValid) {
+          return `color: #fff; background: ${theme.purple}; cursor: pointer;`;
+        } else {
+          return `color: #ededed; background: ${theme.purpleOpacity};`;
+        }
       }
     }
   }}

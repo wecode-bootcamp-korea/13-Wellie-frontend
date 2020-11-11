@@ -31,4 +31,7 @@ export const PHONE_VALIDATE_CODE_CHECK_API =
 export const SUBSCRIPTION_API = "http://10.58.7.192:8000/user/subscription";
 export const CHECK_NICKNAME_API =
   "http://10.58.7.192:8000/user/check?nickname=";
-export const KAKAO_LOGIN_API = "http://10.58.7.192:8000/user/login/social";
+export const VALIDATE_SOCIAL_LOGIN_API =
+  "http://10.58.7.192:8000/user/login/social";
+export const VALIDATE_SOCIAL_SIGNUP_API =
+  "http://10.58.7.192:8000/user/signup/social";

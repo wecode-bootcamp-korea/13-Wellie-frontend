@@ -34,8 +34,7 @@ function CommentSection({
     fetch(`${API_BOOK}/${data.book_id}/comment`, {
       method: "POST",
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOH0.db7caCPE0qtvqLxoaMM4S3Fx67aE_VW6aNB-sBKF6oE",
+        Authorization: localStorage.getItem("Authorization"),
       },
       body: JSON.stringify({
         content: newComment.user_comment,
@@ -69,8 +68,7 @@ function CommentSection({
     fetch(`${API_BOOK}/${data.book_id}/comment?comment_id=${id}`, {
       method: "DELETE",
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOH0.db7caCPE0qtvqLxoaMM4S3Fx67aE_VW6aNB-sBKF6oE",
+        Authorization: localStorage.getItem("Authorization"),
       },
     }).then((response) => {
       if (response.status === 204) {
