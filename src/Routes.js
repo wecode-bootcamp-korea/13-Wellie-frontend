@@ -22,7 +22,7 @@ class Routes extends React.Component {
               <Route exact path="/" component={WellieMain} />
               <Route path="/Login" component={Login} />
               <Route path="/join" component={Join} />
-              <Route exact path="/BookDetails" component={BookDetails} />
+              <Route exact path="/BookDetails/:id" component={BookDetails} />
               <Route
                 exact
                 path="*"
