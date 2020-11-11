@@ -7,6 +7,8 @@ import Join from "./Pages/Login/Join";
 import Today from "./Pages/Today/Today";
 import MyBooks from "./Pages/MyBooks/MyBooks";
 import Nav from "./Components/Nav/Nav";
+import Search from "./Pages/Search/Search";
+import SearchResult from "./Pages/Search/SearchResult";
 import { theme } from "./Styles/Theme";
 import GlobalStyle from "./Styles/GlobalStyle";
 
@@ -29,6 +31,8 @@ class Routes extends React.Component {
                     <Nav component={Nav} />
                     <Route path="/Today" component={Today} />
                     <Route path="/MyBooks" component={MyBooks} />
+                    <Route exact path="/search" component={Search} />
+                    <Route path="/search/result" component={SearchResult} />
                   </>
                 )}
               />
