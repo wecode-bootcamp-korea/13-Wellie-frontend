@@ -15,8 +15,11 @@ import Category from "./Pages/Category/Category";
 import Today from "./Pages/Today/Today";
 import MyBooks from "./Pages/MyBooks/MyBooks";
 import MyBooksManager from "./Pages/MyBooksManager/MyBooksManager";
+import Category from "./Pages/Category/Category";
 import BookDetails from "./Pages/BookDetails/BookDetails";
 import { ThemeProvider } from "styled-components";
+import SearchDefault from "./Pages/Search/SearchDefault";
+import SearchResult from "./Pages/Search/SearchResult";
 import { theme } from "./Styles/Theme";
 import PhoneValidate from "./Pages/Signup/components/PhoneValidate";
 import SetAccount from "./Pages/Signup/components/SetAccount";
@@ -57,6 +60,10 @@ export default class Routes extends React.Component {
               <Route exact path="/set_account" component={SetAccount} />
               <Route exact path="/subscribe" component={Subscribe} />
               <Route exact path="/payments" component={Payments} />
+              <Route path="/category/:id" component={Category} />
+              <Route path="/home" component={SearchDefault} />
+              <Route path="/search_result" component={SearchResult} />
+              <Route path="/MyBooks" component={MyBooks} />
             </Switch>
           </Router>
         </ThemeProvider>
@@ -65,4 +72,4 @@ export default class Routes extends React.Component {
   }
 }
 
-export default Routes;
+
