@@ -1,15 +1,21 @@
 import styled from "styled-components";
 import { COMPLETED_BTN_IMG, SAVE_BTN_IMG } from "../../config";
 
-function Aside({ isSaved, setIsSaved, onSave, saveBtn }) {
+function Aside({
+  setIsActiveReadNow,
+  isActiveReadNow,
+  isSaved,
+  setIsSaved,
+  onSave,
+}) {
   return (
     <AsideContainer>
       <Container>
         <ul>
-          <Menu saveBtn={saveBtn} isSaved={isSaved} setIsSaved={setIsSaved}>
+          <Menu isSaved={isSaved} setIsSaved={setIsSaved}>
             <img alt="save" src={isSaved ? COMPLETED_BTN_IMG : SAVE_BTN_IMG} />
             <button onClick={onSave}>
-              {saveBtn ? "담기 완료" : "내 서재에 담기"}
+              {isSaved ? "담기 완료" : "내 서재에 담기"}
             </button>
           </Menu>
           <Menu>
@@ -20,7 +26,9 @@ function Aside({ isSaved, setIsSaved, onSave, saveBtn }) {
             <button>공유하기</button>
           </Menu>
         </ul>
-        <ReadNow>바로 읽기</ReadNow>
+        <ReadNow onClick={() => setIsActiveReadNow(!isActiveReadNow)}>
+          바로 읽기
+        </ReadNow>
       </Container>
     </AsideContainer>
   );

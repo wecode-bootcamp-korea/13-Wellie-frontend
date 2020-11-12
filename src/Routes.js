@@ -5,6 +5,7 @@ import Nav from "./Components/Nav/Nav";
 import WellieMain from "./Pages/WellieMain/WellieMain";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
+import Today from "./Pages/Today/Today";
 import MyBooks from "./Pages/MyBooks/MyBooks";
 import BookDetails from "./Pages/BookDetails/BookDetails";
 import { ThemeProvider } from "styled-components";
@@ -31,3 +32,5 @@ class Routes extends React.Component {
     );
   }
 }
+
+export default Routes;

@@ -15,7 +15,9 @@ function IntroSection({ data }) {
         <div>
           <p className={closed ? "" : "close"}>{data.introduction}</p>
         </div>
-        <button onClick={toggleMoreBtn}>더보기</button>
+        <button onClick={toggleMoreBtn}>
+          {closed ? "접어 두기" : "더보기"}
+        </button>
       </div>
       <IntroBox>
         <IntroInfo bottom>

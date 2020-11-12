@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function DescSection({ data }) {
+function DescSection({ data, comments }) {
   return (
     <Container data={data}>
       <Book alt="" src={data.image_url} />
@@ -26,7 +26,7 @@ function DescSection({ data }) {
               src="https://cdn0.iconfinder.com/data/icons/free-daily-icon-set/512/Comments-256.png"
             />
             <p>한 줄 리뷰</p>
-            <p>27개</p>
+            <p>{comments?.length}개</p>
           </InfoBox>
         </div>
       </div>
@@ -55,12 +55,11 @@ const Container = styled.section`
       justify-content: space-between;
       align-items: center;
       div:nth-child(2) {
-      width: 1px;
-      height: 50px;
-      background-color: rgb(223,223,223);
+        width: 1px;
+        height: 50px;
+        background-color: rgb(223, 223, 223);
       }
     }
-  }
   }
 `;
 
@@ -115,6 +114,7 @@ const InfoBox = styled.div`
 
     &:last-child {
       font-size: 14px;
+      font-weight: 750;
       color: rgb(85, 85, 85);
     }
   }

@@ -1,12 +1,16 @@
-import { Component, useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Comment from "./Components/Comment";
-import { API_BOOK, DEFAULT_IMG } from "../../config";
+import { DEFAULT_IMG, API_BOOK } from "../../config";
 
-function CommentSection() {
-  const [comments, setComments] = useState([]);
+function CommentSection({
+  comments,
+  setComments,
+  data,
+  moreBtnColor,
+  setMoreBtnColor,
+}) {
   const [isActiveBtn, setIsActiveBtn] = useState(false);
-  const [moreBtnColor, setMoreBtnColor] = useState(false);
   const [isActiveMoreBtn, setIsActiveMoreBtn] = useState(false);
   const [commentValue, setCommentValue] = useState("");
 
@@ -21,17 +25,34 @@ function CommentSection() {
 
   const addComment = (id) => {
     const newComment = {
-      user_name: "trooioi",
+      user_name: data.user_name,
       user_img: DEFAULT_IMG,
       user_comment: commentValue,
-      user_id: comments.length + 1,
       date: "2020.10.23",
     };
 
-    if (commentValue.length >= 1) {
-      setComments([...comments, newComment]);
-      setCommentValue("");
-    }
+    fetch(`${API_BOOK}/${data.book_id}/comment`, {
+      method: "POST",
+      headers: {
+        Authorization:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOH0.db7caCPE0qtvqLxoaMM4S3Fx67aE_VW6aNB-sBKF6oE",
+      },
+      body: JSON.stringify({
+        content: newComment.user_comment,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (commentValue.length >= 1) {
+          setComments([
+            ...comments,
+            { ...newComment, comment_id: res.MESSAGE },
+          ]);
+          setCommentValue("");
+        }
+      });
+
+    setIsActiveMoreBtn(true);
   };
 
   const handleEnter = (e) => {
@@ -45,24 +66,28 @@ function CommentSection() {
   };
 
   const onRemove = (id) => {
-    setComments(comments.filter((comment) => comment.user_id !== id));
+    fetch(`${API_BOOK}/${data.book_id}/comment?comment_id=${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOH0.db7caCPE0qtvqLxoaMM4S3Fx67aE_VW6aNB-sBKF6oE",
+      },
+    }).then((response) => {
+      if (response.status === 204) {
+        setComments(comments.filter((comment) => comment.comment_id !== id));
+      }
+    });
   };
 
-  useEffect(() => {
-    fetch(`${API_BOOK}/1/comment`)
-      .then((res) => res.json())
-      .then((res) => setComments(res.COMMENT));
-  }, []);
-
   return (
-    <Container isActiveMoreBtn={isActiveMoreBtn} isActiveBtn>
+    <Container isActiveMoreBtn={isActiveMoreBtn}>
       <div className="reviewContainer">
         <h1>
           한 줄 리뷰
-          <p>{comments.length}</p>
+          <p>{comments?.length}</p>
         </h1>
       </div>
-      <CommentList isActiveMoreBtn={isActiveMoreBtn}>
+      <CommentList comments={comments} isActiveMoreBtn={isActiveMoreBtn}>
         {comments.map(
           ({
             comment_id,
@@ -85,7 +110,7 @@ function CommentSection() {
           )
         )}
         <MoreComment moreBtnColor={moreBtnColor} onClick={handleMoreComments}>
-          더보기
+          {isActiveMoreBtn ? "접기" : "더보기"}
         </MoreComment>
       </CommentList>
 
@@ -119,7 +144,7 @@ export default CommentSection;
 
 const Container = styled.section`
   padding: 24px;
-  max-height: ${({ isActiveMoreBtn }) => (isActiveMoreBtn ? "" : "450px")};
+  max-height: ${({ isActiveMoreBtn }) => (isActiveMoreBtn ? "" : "480px")};
   position: relative;
   .reviewContainer {
     display: flex;
@@ -153,6 +178,7 @@ const Container = styled.section`
 const CommentList = styled.ul`
   max-height: ${({ isActiveMoreBtn }) => (isActiveMoreBtn ? "" : "330px")};
   overflow: hidden;
+  position: relative;
 `;
 
 const MoreComment = styled.button`
@@ -161,7 +187,7 @@ const MoreComment = styled.button`
   height: 30px;
   border-radius: 20px;
   position: absolute;
-  bottom: 102px;
+  bottom: 0;
   left: 49%;
   background-color: transparent;
   color: ${({ moreBtnColor }) =>
