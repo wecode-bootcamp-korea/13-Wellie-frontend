@@ -170,6 +170,7 @@ const Main = styled.div`
   margin: 0 auto;
 
   article {
+    margin-top: 64px;
     width: 998px;
     border-left: 1px solid rgb(223, 223, 223);
   }

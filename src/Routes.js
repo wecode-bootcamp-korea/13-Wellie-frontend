@@ -18,12 +18,8 @@ import MyBooksManager from "./Pages/MyBooksManager/MyBooksManager";
 import BookDetails from "./Pages/BookDetails/BookDetails";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./Styles/Theme";
-import PhoneValidate from "./Pages/Signup/components/PhoneValidate";
-import SetAccount from "./Pages/Signup/components/SetAccount";
-import Subscribe from "./Pages/Subscribe/Subscribe";
-import Payments from "./Pages/Subscribe/Payments";
 
-export default class Routes extends React.Component {
+class Routes extends React.Component {
   render() {
     return (
       <React.Fragment>
