@@ -32,7 +32,11 @@ export function BookShelfList({
                 onClick={() => {
                   history.push({
                     pathname: "/my_books_manager",
-                    state: { id: item.id },
+                    state: {
+                      data: bookShelfListCard,
+                      id: item.id,
+                      bookShelfName: item.bookShelfName,
+                    },
                   });
                 }}
               >
