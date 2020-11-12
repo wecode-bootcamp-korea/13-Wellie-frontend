@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import styled from "styled-components";
-<<<<<<< HEAD
 import { BEAPIROOT } from "../../config";
-=======
->>>>>>> 31a0cc3... Fix: resolved conflicts
 import { FaArrowLeft } from "react-icons/fa";
 
 const optionalCategory = {
@@ -18,11 +15,7 @@ export default function Category(props) {
   const [subcategories, setSubcategories] = useState([]);
 
   useEffect(() => {
-<<<<<<< HEAD
     fetch(`${BEAPIROOT}/book/category/${optionalCategory.id}`)
-=======
-    fetch(`http://10.58.7.192:8000/book/category/${optionalCategory.id}`)
->>>>>>> 31a0cc3... Fix: resolved conflicts
       .then((res) => res.json())
       .then((res) => setSubcategories(res.subcategories));
   }, []);
@@ -39,15 +32,9 @@ export default function Category(props) {
       </Header>
       <Contents>
         <SubcategoryContainer>
-<<<<<<< HEAD
           {subcategories?.map((subcategory, i) => {
             return (
               <SubcategoryWrap key={i}>
-=======
-          {subcategories?.map((subcategory) => {
-            return (
-              <SubcategoryWrap>
->>>>>>> 31a0cc3... Fix: resolved conflicts
                 <h4>{subcategory.subcategory_name}</h4>
                 <SwiperWrap>
                   {subcategory.books.map((book) => {
@@ -55,11 +42,7 @@ export default function Category(props) {
                       <Book
                         key={book.book_id}
                         onClick={() =>
-<<<<<<< HEAD
                           history.push(`/book_details/${book.book_id}`)
-=======
-                          history.push(`/bookdetail/${book.book_id}`)
->>>>>>> 31a0cc3... Fix: resolved conflicts
                         }
                       >
                         <img src={book.book_image} alt="Subcategory book" />
@@ -107,11 +90,7 @@ const Header = styled.header`
 
     h1 {
       text-align: center;
-<<<<<<< HEAD
       width: 850px;
-=======
-      width: 700px;
->>>>>>> 31a0cc3... Fix: resolved conflicts
     }
   }
 `;
@@ -121,11 +100,7 @@ const Contents = styled.main`
   position: relative;
   padding: 20px 15px 15px 15px;
   margin: 0 auto;
-<<<<<<< HEAD
   width: 850px;
-=======
-  width: 700px;
->>>>>>> 31a0cc3... Fix: resolved conflicts
 `;
 
 const SubcategoryContainer = styled.div`
@@ -156,10 +131,6 @@ const SwiperWrap = styled.div`
 const Book = styled.span`
   margin-right: 10px;
   img {
-<<<<<<< HEAD
     height: 180px;
-=======
-    height: 150px;
->>>>>>> 31a0cc3... Fix: resolved conflicts
   }
 `;
