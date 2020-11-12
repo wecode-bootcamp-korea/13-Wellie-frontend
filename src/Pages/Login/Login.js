@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import SocialPlatforms from "./SocialPlatforms";
-import { loginImagesArr } from "./loginImagesData";
+import Swal from "sweetalert2";
+import SocialPlatforms from "./components/SocialPlatforms";
+import WelcomeModal from "./components/WelcomeModal";
+import { loginImagesArr } from "./data/loginImagesData";
+import { VALIDATE_LOGIN_API } from "../../config";
 
 const loginImgWidth = window.innerWidth;
 
@@ -18,7 +21,7 @@ class Login extends Component {
       slideIntervalDelay: 5000,
       userCell: "",
       userPw: "",
-      socialList: [],
+      isWelcomeModalOpen: false,
     };
   }
 
@@ -67,18 +70,57 @@ class Login extends Component {
     });
   };
 
-  validateAndGoToToday = () => {
-    const { userCell, userPw } = this.state;
-    if (userCell.length >= 10 && userPw.length >= 5) {
+  chooseActionAfterLogin = (isUserSubscribed) => {
+    if (isUserSubscribed) {
       this.props.history.push("/today");
     } else {
-      alert("휴대폰 번호 10-11자, 비밀번호 5자 이상 입력해주세요.");
+      setTimeout(() => {
+        this.setState({
+          isWelcomeModalOpen: true,
+        });
+      }, 2000);
     }
   };
 
-  validateAndGoToTodayOnEnter = (e) => {
+  validateLogin = async () => {
+    const { userCell, userPw } = this.state;
+    try {
+      const res = await fetch(VALIDATE_LOGIN_API, {
+        method: "POST",
+        body: JSON.stringify({
+          userType: 1,
+          userCell: userCell,
+          password: userPw,
+        }),
+      });
+      const data = await res.json();
+      if (data.MESSAGE === "SUCCESS") {
+        window.localStorage.setItem("Authorization", data.Authorization);
+        window.localStorage.setItem("userCell", userCell);
+        Swal.fire({
+          icon: "success",
+          iconColor: "rgba(164, 81, 247, 1)",
+          text: "Welcome to Wellie",
+          showConfirmButton: false,
+          timer: 1600,
+        });
+        this.chooseActionAfterLogin(data.SUBSCRIBE);
+      } else {
+        Swal.fire({
+          icon: "warning",
+          iconColor: "rgba(252, 235, 96, 1)",
+          text:
+            "휴대폰번호/비밀번호가 올바르지 않습니다. 확인 후 다시 로그인 해주세요.",
+        });
+      }
+    } catch (err) {
+      alert("POST Error");
+    }
+  };
+
+  validateLoginOnEnter = (e) => {
     if (e.key === "Enter") {
-      this.validateAndGoToToday();
+      this.validateLogin();
     }
   };
 
@@ -89,6 +131,7 @@ class Login extends Component {
       loginImgsTransitionDelay,
       userCell,
       userPw,
+      isWelcomeModalOpen,
     } = this.state;
     return (
       <StyledLogin className="Login">
@@ -116,29 +159,28 @@ class Login extends Component {
             alt="logo"
           />
           <LoginContainer>
-            <LoginForm>
+            <LoginForm as="div">
               <CellInput
                 className="CellNumInput"
                 placeholder="휴대폰 번호"
                 value={userCell}
                 onChange={this.handleIdPw}
-                onKeyPress={this.validateAndGoToTodayOnEnter}
               />
               <PwInput
                 className="PwInput"
                 placeholder="비밀번호"
                 value={userPw}
                 onChange={this.handleIdPw}
-                onKeyPress={this.validateAndGoToTodayOnEnter}
+                onKeyPress={this.validateLoginOnEnter}
               />
-              <LoginButton onClick={this.validateAndGoToToday}>
+              <LoginButton onClick={this.validateLogin}>
                 휴대폰 번호 로그인
               </LoginButton>
             </LoginForm>
             <Or>또는</Or>
             <SocialPlatforms />
             <LoginJoinLinkContainer>
-              <Link className="Link" to="/join">
+              <Link className="Link" to="/signup">
                 <li className="signup">회원가입</li>
               </Link>
               <span>|</span>
@@ -148,6 +190,7 @@ class Login extends Component {
             </LoginJoinLinkContainer>
           </LoginContainer>
         </LoginContents>
+        <WelcomeModal isActive={isWelcomeModalOpen} userCell={userCell} />
       </StyledLogin>
     );
   }

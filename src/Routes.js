@@ -18,8 +18,12 @@ import MyBooksManager from "./Pages/MyBooksManager/MyBooksManager";
 import BookDetails from "./Pages/BookDetails/BookDetails";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./Styles/Theme";
+import PhoneValidate from "./Pages/Signup/components/PhoneValidate";
+import SetAccount from "./Pages/Signup/components/SetAccount";
+import Subscribe from "./Pages/Subscribe/Subscribe";
+import Payments from "./Pages/Subscribe/Payments";
 
-class Routes extends React.Component {
+export default class Routes extends React.Component {
   render() {
     return (
       <React.Fragment>
@@ -46,6 +50,13 @@ class Routes extends React.Component {
                 component={MyBooksManager}
               />
               <Route exact path="/book_details/:id" component={BookDetails} />
+              <Route exact path="/BookDetails" component={BookDetails} />
+              <Route path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/phone_validate" component={PhoneValidate} />
+              <Route exact path="/set_account" component={SetAccount} />
+              <Route exact path="/subscribe" component={Subscribe} />
+              <Route exact path="/payments" component={Payments} />
             </Switch>
           </Router>
         </ThemeProvider>
