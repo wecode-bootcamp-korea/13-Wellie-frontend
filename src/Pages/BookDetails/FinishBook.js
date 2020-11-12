@@ -9,8 +9,10 @@ function FinishBook({ data }) {
       <MainBox>
         <PercentBox>
           <FirstLine>완독할 확률</FirstLine>
-          <SecondLine>{data.category_complete_per}%</SecondLine>
-          <ThirdLine>자기계발 분야 평균 50%</ThirdLine>
+          <SecondLine>{data.complete_per}%</SecondLine>
+          <ThirdLine>
+            자기계발 분야 평균 {data.category_complete_per}%
+          </ThirdLine>
         </PercentBox>
         <PercentBox margin>
           <img
@@ -18,8 +20,10 @@ function FinishBook({ data }) {
             alt="clock"
           />
           <FirstLine>완독 예상 시간</FirstLine>
-          <SecondLine>{data.category_complete_time}</SecondLine>
-          <ThirdLine>자기계발 분야 평균 1시간 55분</ThirdLine>
+          <SecondLine>{data.complete_time}</SecondLine>
+          <ThirdLine>
+            자기계발 분야 평균 {data.category_complete_time}
+          </ThirdLine>
         </PercentBox>
       </MainBox>
     </Container>

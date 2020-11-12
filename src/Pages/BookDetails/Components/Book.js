@@ -1,10 +1,19 @@
-import React, { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 
-function Book({ bookName, bookImg, bookAuthor }) {
+function Book({ bookId, bookName, bookImg, bookAuthor }) {
+  const history = useHistory();
+
   return (
-    <Container>
-      <img alt="book" src={bookImg} />
+    <Container bookId={bookId}>
+      <img
+        onClick={() => {
+          history.push(`/book_details/${bookId}`);
+          window.scroll(0, 0);
+        }}
+        alt="book"
+        src={bookImg}
+      />
       <div>
         <span>{bookName}</span>
         <span>{bookAuthor}</span>
@@ -24,6 +33,7 @@ const Container = styled.div`
   img {
     width: 145px;
     box-shadow: 5px 5px 5px rgb(223, 223, 223);
+    cursor: pointer;
   }
   div {
     display: flex;
