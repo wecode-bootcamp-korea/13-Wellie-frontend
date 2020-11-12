@@ -8,6 +8,7 @@ import Signup from "./Pages/Signup/Signup";
 import MyBooks from "./Pages/MyBooks/MyBooks";
 import BookDetails from "./Pages/BookDetails/BookDetails";
 import { ThemeProvider } from "styled-components";
+import Category from "./Pages/Category/Category";
 import { theme } from "./Styles/Theme";
 
 class Routes extends React.Component {
