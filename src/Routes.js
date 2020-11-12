@@ -9,8 +9,6 @@ import PhoneValidate from "./Pages/Signup/components/PhoneValidate";
 import SetAccount from "./Pages/Signup/components/SetAccount";
 import Subscribe from "./Pages/Subscribe/Subscribe";
 import Payments from "./Pages/Subscribe/Payments";
-import Search from "./Pages/Search/Search";
-import SearchResult from "./Pages/Search/SearchResult";
 import Category from "./Pages/Category/Category";
 import Today from "./Pages/Today/Today";
 import MyBooks from "./Pages/MyBooks/MyBooks";
@@ -40,7 +38,6 @@ export default class Routes extends React.Component {
               <Route exact path="/subscribe" component={Subscribe} />
               <Route exact path="/payments" component={Payments} />
               <Route exact path="/today" component={Today} />
-              <Route exact path="/search" component={Search} />
               <Route exact path="/search/result" component={SearchResult} />
               <Route exact path="/category" component={Category} />
               <Route exact path="/my_books" component={MyBooks} />
@@ -68,5 +65,3 @@ export default class Routes extends React.Component {
     );
   }
 }
-
-
