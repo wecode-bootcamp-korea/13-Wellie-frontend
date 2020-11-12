@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { withRouter, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { API, TOKEN } from "../../config";
 
 function MyBooksManager(props) {
+  const history = useHistory();
   const [bookList, setBookList] = useState([]);
+  const [bookShelfList, setBookShelfList] = useState([]);
   const [bookShelfInput, setbookShelfInput] = useState("");
   const [checkBookList, setCheckBookList] = useState([]);
-  const history = useHistory();
+  const [saveItem, setSaverItem] = useState([]);
 
   useEffect(() => {
     !history.location.state
@@ -18,17 +20,23 @@ function MyBooksManager(props) {
         })
           .then((res) => res.json())
           .then((res) => setBookList(res))
-      : fetch(`${API}/library/mybook${history.location.state.id}`, {
-          headers: {
-            Authorization: TOKEN,
-          },
-        })
+      : fetch(
+          `${API}/library/shelfdetail?shelf_id=${history.location.state.id}`,
+          {
+            headers: {
+              Authorization: TOKEN,
+            },
+          }
+        )
           .then((res) => res.json())
-          .then((res) => setBookList(res));
+          .then((res) => {
+            setBookShelfList(res.bookShelfCase);
+          });
   }, []);
 
   const handleChangeBookShelfNameInput = (e) => {
     const { value } = e.target;
+
     setbookShelfInput(value);
   };
 
@@ -61,8 +69,67 @@ function MyBooksManager(props) {
         .then((res) => res.json())
         .then((res) => {
           alert("책장이 추가되었습니다.");
-          history.push("/my_books_manager");
+          history.push("/my_books");
         });
+    }
+  };
+
+  const handleClickBookShelfSave = () => {
+    for (let i = 0; i < bookShelfList.length; i++) {
+      saveItem.push(bookShelfList[i].id);
+    }
+
+    if (!bookShelfInput) {
+      alert("서재명을 입력해주세요");
+    } else {
+      fetch(`${API}/library/shelfdetail`, {
+        method: "patch",
+        headers: {
+          Authorization: TOKEN,
+        },
+        body: JSON.stringify({
+          shelf_id: history.location.state.id,
+          booklist: saveItem,
+          shelfname: bookShelfInput,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          alert("책장이 수정되었습니다.");
+          history.push("/my_books");
+        });
+    }
+  };
+
+  const handleClickBookShelfDelete = () => {
+    const newArray = [...bookShelfList];
+    const filterItem = newArray.filter(
+      (item) => checkBookList.indexOf(item.id) === -1
+    );
+    setBookShelfList(filterItem);
+  };
+
+  const handleChangeAllCheck = (e) => {
+    const { checked } = e.target;
+
+    if (!history.location.state) {
+      if (checked) {
+        const allArray = [];
+        bookList.books.forEach((item) => allArray.push(item.id));
+
+        setCheckBookList(allArray);
+      } else {
+        setCheckBookList([]);
+      }
+    } else {
+      if (checked) {
+        const allArray = [];
+        bookShelfList.forEach((item) => allArray.push(item.id));
+
+        setCheckBookList(allArray);
+      } else {
+        setCheckBookList([]);
+      }
     }
   };
 
@@ -76,41 +143,88 @@ function MyBooksManager(props) {
       <Container>
         <TopBanner>
           <InputWrap>
-            <BookShelfNameInput
-              type="text"
-              placeholder="책장 이름을 입력해주세요."
-              onChange={handleChangeBookShelfNameInput}
-            />
+            {!history.location.state ? (
+              <BookShelfNameInput
+                type="text"
+                placeholder="책장 이름을 입력해주세요."
+                onChange={handleChangeBookShelfNameInput}
+              />
+            ) : (
+              <BookShelfNameInput
+                type="text"
+                value={bookShelfInput}
+                placeholder="책장 이름을 입력해주세요."
+                onChange={handleChangeBookShelfNameInput}
+              />
+            )}
           </InputWrap>
         </TopBanner>
       </Container>
       <Container>
+        <SelectWrap>
+          <FilterInput
+            id="all"
+            type="checkbox"
+            name="allSelect"
+            onChange={(e) => handleChangeAllCheck(e)}
+          />
+          <CheckIcon />
+          <FilterLabel htmlFor="all">전체선택</FilterLabel>
+        </SelectWrap>
+      </Container>
+      <Container>
         <ListWrap>
-          {bookList.books &&
-            bookList.books.map((item) => (
-              <List key={item.id}>
-                <SelectInput
-                  id={item.id}
-                  type={"checkbox"}
-                  checked={checkBookList.includes(item.id) ? true : false}
-                  onChange={(e) => {
-                    handleChangesingleCheck(e, item.id);
-                  }}
-                />
-                <SelectLabel htmlFor={item.id}></SelectLabel>
-                <ImgWrap>
-                  <img src={item.bookCoverImg} alt="도서 책커버" />
-                </ImgWrap>
-                <BookInfo>
-                  <h5>{item.bookName}</h5>
-                  <p>
-                    {item.writer.map((item, idx) => (
-                      <span key={idx}>{item}</span>
-                    ))}
-                  </p>
-                </BookInfo>
-              </List>
-            ))}
+          {!history.location.state
+            ? bookList.books &&
+              bookList.books.map((item) => (
+                <List key={item.id}>
+                  <SelectInput
+                    id={item.id}
+                    type={"checkbox"}
+                    checked={checkBookList.includes(item.id) ? true : false}
+                    onChange={(e) => {
+                      handleChangesingleCheck(e, item.id);
+                    }}
+                  />
+                  <SelectLabel htmlFor={item.id}></SelectLabel>
+                  <ImgWrap>
+                    <img src={item.bookCoverImg} alt="도서 책커버" />
+                  </ImgWrap>
+                  <BookInfo>
+                    <h5>{item.bookName}</h5>
+                    <p>
+                      {item.writer.map((item, idx) => (
+                        <span key={idx}>{item}</span>
+                      ))}
+                    </p>
+                  </BookInfo>
+                </List>
+              ))
+            : bookShelfList &&
+              bookShelfList.map((item) => (
+                <List key={item.id}>
+                  <SelectInput
+                    id={item.id}
+                    type={"checkbox"}
+                    checked={checkBookList.includes(item.id) ? true : false}
+                    onChange={(e) => {
+                      handleChangesingleCheck(e, item.id);
+                    }}
+                  />
+                  <SelectLabel htmlFor={item.id}></SelectLabel>
+                  <ImgWrap>
+                    <img src={item.bookCoverImg} alt="도서 책커버" />
+                  </ImgWrap>
+                  <BookInfo>
+                    <h5>{item.bookName}</h5>
+                    <p>
+                      {item.writer.map((item, idx) => (
+                        <span key={idx}>{item}</span>
+                      ))}
+                    </p>
+                  </BookInfo>
+                </List>
+              ))}
         </ListWrap>
         <AddBtnWrap>
           {!history.location.state ? (
@@ -119,8 +233,15 @@ function MyBooksManager(props) {
             </BookShelfAddBtn>
           ) : (
             <BookShelfAddBtnWrap>
-              <BookShelfAddBtn color="gray">삭제</BookShelfAddBtn>
-              <BookShelfAddBtn>저장</BookShelfAddBtn>
+              <BookShelfAddBtn
+                color="gray"
+                onClick={() => handleClickBookShelfDelete()}
+              >
+                삭제
+              </BookShelfAddBtn>
+              <BookShelfAddBtn onClick={() => handleClickBookShelfSave()}>
+                저장
+              </BookShelfAddBtn>
             </BookShelfAddBtnWrap>
           )}
         </AddBtnWrap>
@@ -129,7 +250,7 @@ function MyBooksManager(props) {
   );
 }
 
-export default withRouter(MyBooksManager);
+export default MyBooksManager;
 
 const ManagerWrapper = styled.div`
   min-height: 100vh;
@@ -191,8 +312,8 @@ const BookShelfAddBtnWrap = styled.div`
 `;
 
 const ListWrap = styled.ul`
-  min-height: 100vh;
-  padding: 250px 0 50px;
+  min-height: calc(100vh - 310px);
+  padding: 0 0 50px;
   background: #fff;
   border-left: 1px solid #eee;
   border-right: 1px solid #eee;
@@ -293,4 +414,47 @@ const SelectLabel = styled.label`
   top: 0;
   bottom: 0;
   cursor: pointer;
+`;
+
+const CheckIcon = styled.span`
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  background-image: url(/images/MyBooks/spl_input.png);
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+  background-position: -25px 0;
+`;
+
+const SelectWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 260px 15px 5px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+`;
+
+const FilterLabel = styled.label`
+  font-size: 14px;
+  line-height: 24px;
+  vertical-align: top;
+  color: #999;
+`;
+
+const FilterInput = styled.input`
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+
+  &:checked + span {
+    background-position: -25px -25px;
+  }
+
+  &:checked + span + label {
+    font-weight: 600;
+  }
 `;

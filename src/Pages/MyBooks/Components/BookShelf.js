@@ -50,7 +50,7 @@ export function BookShelf({
             alt="비어있는 서재 아이콘"
           />
           <h5>나만의 책장을 만들어보세요!</h5>
-          <AddBookShelf>
+          <AddBookShelf onClick={() => history.push("/my_books_manager")}>
             <span>
               <AiOutlinePlus />
             </span>
