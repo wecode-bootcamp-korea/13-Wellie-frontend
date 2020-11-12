@@ -7,8 +7,9 @@ import IntroSection from "./IntroSection";
 import Aside from "./Aside";
 import Book from "./Components/Book";
 import Nav from "../../Components/Nav/Nav";
+import { API_BOOK } from "../../config";
 
-function BookDetails() {
+function BookDetails(props) {
   const [data, setData] = useState([]);
   const [isOpened, setIsOpened] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -21,7 +22,7 @@ function BookDetails() {
   };
 
   useEffect(() => {
-    fetch("http://10.58.7.192:8000/book/1")
+    fetch(`${API_BOOK}/${props.match.params.id}`)
       .then((res) => res.json())
       .then((res) => setData(res.MESSAGE));
   }, []);
@@ -29,7 +30,9 @@ function BookDetails() {
   useEffect(() => {
     fetch("/data/BookDetails/books.json")
       .then((res) => res.json())
-      .then((res) => setBooks(res.BOOK));
+      .then((res) => {
+        setBooks(res.BOOK);
+      });
   }, []);
 
   useEffect(() => {
