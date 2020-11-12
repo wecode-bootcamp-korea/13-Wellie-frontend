@@ -4,12 +4,7 @@ import styled from "styled-components";
 import TextBox from "./Components/TextBox";
 import PriceCard from "./Components/PriceCard";
 import AOS from "aos";
-import {
-  BEAPIROOT,
-  LOCALHOST,
-  EbookSubscribeOptionItems,
-  PaperbackSubscribeOptionItems,
-} from "../../config";
+import { BEAPIROOT, LOCALHOST } from "../../config";
 import "aos/dist/aos.css";
 import { FaHeadphones } from "react-icons/fa";
 import { FaMobileAlt } from "react-icons/fa";
@@ -21,9 +16,10 @@ const WellieMain = () => {
   const [priceCardString, setPriceCardString] = useState([]);
 
   useEffect(() => {
-    fetch(`${BEAPIROOT}/book`)
+    fetch(`${BEAPIROOT}/book?limit=55`)
       .then((res) => res.json())
       .then((res) => {
+        console.log(res.MESSAGE);
         setCovers(res.MESSAGE);
       })
       .catch((err) => console.log("Catched errors!!", err));
@@ -145,11 +141,11 @@ const WellieMain = () => {
             </p>
           </div>
           <div data-aos="fade-up-left" className="booksBox">
-            {covers?.map(({ book_image }) => {
+            {covers?.map(({ book_img }) => {
               return (
                 <img
                   data-aos="fade-up-left"
-                  src={book_image}
+                  src={book_img}
                   alt="Book cover"
                 ></img>
               );
@@ -177,12 +173,12 @@ const WellieMain = () => {
           <div className="bookImages">
             <img
               data-aos="fade-down"
-              src={covers[41]?.book_image}
+              src={covers[41]?.book_img}
               alt="Book Cover"
             />
             <img
               data-aos="fade-down"
-              src={covers[43]?.book_image}
+              src={covers[43]?.book_img}
               alt="Book Cover"
             />
           </div>
@@ -215,7 +211,7 @@ const WellieMain = () => {
               </span>
             </div>
             <div className="contentsOfCard">
-              <img src={covers[38]?.book_image} alt="Book cover"></img>
+              <img src={covers[38]?.book_img} alt="Book cover"></img>
               <img
                 src="https://files.mormonsud.net/wp-content/uploads/2016/09/two-people-debate.png"
                 alt="Speaking"
@@ -236,7 +232,7 @@ const WellieMain = () => {
               </span>
             </div>
             <div className="contentsOfCard">
-              <img src={covers[36]?.book_image} alt="Book cover"></img>
+              <img src={covers[36]?.book_img} alt="Book cover"></img>
               <img
                 src="https://d3udu241ivsax2.cloudfront.net/common/images/company/brand/millieBookCard2Img.png"
                 alt="Chat Book example"

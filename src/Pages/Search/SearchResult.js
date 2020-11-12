@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useLocation } from "react-router";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { Map, Marker, MarkerClusterer, Polyline } from "react-kakao-maps";
+import { setBooks, setSort } from "../../store/actions/index";
 import { BEAPIROOT } from "../../config";
 import InnerInput from "./Components/InnerInput";
 import { FaList } from "react-icons/fa";
-import { HiOutlineViewGrid } from "react-icons/hi";
 
 const SORTS = [
   { value: "keyword", sort: "키워드 일치 순" },
@@ -13,37 +15,77 @@ const SORTS = [
   { value: "published", sort: "발간일 순" },
 ];
 
-export default function SearchResult() {
-  const location = useLocation();
+export default function SearchResult(props) {
   const history = useHistory();
-  const [books, setBooks] = useState([]);
-  const [sort, setSort] = useState("keyword");
-  const [searchValue, setSearchValue] = useState(
-    window.location.pathname.split("/").pop()
-  );
+  const dispatch = useDispatch();
+  const searchValue = useSelector((store) => store.searchReducer.searchValue);
+  const type = useSelector((store) => store.searchReducer.type);
+  const sort = useSelector((store) => store.searchReducer.sort);
+  const books = useSelector((store) => store.searchReducer.books);
 
   useEffect(() => {
-    fetch(`${BEAPIROOT}/book/search/${searchValue}?type=all&sort=${sort}`)
+    fetch(`${BEAPIROOT}/book/search/${searchValue}?type=${type}&sort=${sort}`)
       .then((res) => res.json())
+
       .then((res) => {
-        setBooks(res.MESSAGE);
+        if (typeof res.MESSAGE == "object") {
+          dispatch(setBooks(res.MESSAGE));
+        } else {
+          dispatch(setBooks(null));
+        }
       })
       .catch((err) => console.log("Catched errors!! >>>", err));
-  }, [sort]);
+  }, [searchValue, type, sort]);
 
-  const changeSort = (e) => {
-    setSort(e.target.value);
-  };
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.async = true;
+  //   script.src =
+  //     "https://dapi.kakao.com/v2/maps/sdk.js?appkey=27eda77757f6ae91d23a2e90cad22c6a&autoload=false";
+  //   document.head.appendChild(script);
+
+  //   script.onload = () => {
+  //     kakao.maps.load(() => {
+  //       const container = document.getElementById("map");
+  //       const options = {
+  //         center: new kakao.maps.LatLng(37.506502, 127.053617),
+  //         level: 8,
+  //       };
+  //       const mapView = new window.kakao.maps.Map(container, options);
+  //     });
+  //   };
+  // }, []);
+
+  const infowindow = new kakaomaps.InfoWindow({ zIndex: 1 });
+
+  const mapContainer = document.getElementById("map"),
+    mapOption = {
+      center: new kakao.maps.LatLng(37.566826, 126.9786567),
+      level: 3,
+    };
+
+  const map = new kakao.maps.Map(mapContainer, mapOption);
+
+  cons ps =  new kakao.maps.services.Places();
+
+  ps.keywordSearch("독서", placesSearchCB);
+
+  const
 
   const goToBookDetail = (id) => {
-    history.push(`/BookDetails/${id}`);
+    history.push(`/book_details/${id}`);
+  };
+
+  const changeSort = (e) => {
+    dispatch(setSort(e.target.value));
   };
 
   return (
     <SearchResultPage>
+      <h2>hello</h2>
       <SubNav>검색결과</SubNav>
       <ContentBody>
-        <InnerInput sort={sort} />
+        <InnerInput />
         <SearchSortWrap>
           <CategoryList>
             <ul>
@@ -104,6 +146,15 @@ export default function SearchResult() {
         </BookContainer>
         <MapContainer>
           <h2 id="map">지도</h2>
+          <MapRectangle>
+            <Map
+              id="map"
+              defaultZoom={8}
+              defaultCenter={{ lat: -34.397, lng: 150.644 }}
+            >
+              {props.isMarkerShown}
+            </Map>
+          </MapRectangle>
         </MapContainer>
       </ContentBody>
     </SearchResultPage>
@@ -147,6 +198,7 @@ const CategoryList = styled.div`
   margin-bottom: 20px;
 
   ul {
+    margin-top: 30px;
     display: flex;
     padding-bottom: 10px;
 
@@ -169,7 +221,7 @@ const CategoryList = styled.div`
 
 const SearchSort = styled.div`
   display: flex;
-  height: 30px;
+  height: 50px;
   align-items: center;
   padding: 10px 0 10px 8px;
   border-radius: 6px;
@@ -238,15 +290,15 @@ const BookContainer = styled.section`
   ul {
     flex-wrap: wrap;
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
   }
 `;
 
 const Book = styled.li`
   position: relative;
-  width: 13%;
+  width: 14%;
   padding-bottom: 1.2%;
+  padding-right: 1.6%;
   cursor: pointer;
 
   img {
@@ -297,4 +349,10 @@ const MapContainer = styled.section`
     color: rgb(68, 68, 68);
     font-weight: bold;
   }
+`;
+
+const MapRectangle = styled.div`
+  border: 1px solid red;
+  width: 1000px;
+  height: 1000px;
 `;

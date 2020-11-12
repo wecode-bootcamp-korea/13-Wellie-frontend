@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { setType, setSearchValue } from "../../../store/actions/index";
 import { FaSearch } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
 
@@ -13,26 +15,29 @@ const TYPES = [
 
 export default function InnerInput(props) {
   const history = useHistory();
-  const [type, setType] = useState("all");
+  const dispatch = useDispatch();
+  const searchValue = useSelector((store) => store.searchReducer.searchValue);
+  const type = useSelector((store) => store.searchReducer.type);
+  const sort = useSelector((store) => store.searchReducer.sort);
   const [inputValue, setInputValue] = useState("");
 
-  function goToResultPage() {
-    history.push({
-      pathname: `/search/result/${inputValue}?type=${type}&sort=${props.sort}`,
-      searchValue: { inputValue: inputValue },
-    });
-  }
-
   function changeType(e) {
-    setType(e.target.value);
+    console.log("changeType", e.target.value);
+    dispatch(setType(e.target.value));
   }
 
-  function deleteInputValue() {
-    document.getElementsByTagName("input")[0].value = "";
+  function updateInputValue(e) {
+    setInputValue(e.target.value);
   }
 
-  function updateInputValue() {
-    setInputValue(document.getElementsByTagName("input")[0].value);
+  const onSubmitHandler = async (e) => {
+    await e.preventDefault();
+    dispatch(setSearchValue(inputValue));
+    history.push(`/search_result/${inputValue}?type=${type}&sort=${sort}`);
+  };
+
+  function deleteInputValue(e) {
+    setInputValue("");
   }
 
   return (
@@ -45,26 +50,25 @@ export default function InnerInput(props) {
         </select>
       </FilterType>
       <InputArea>
-        <FaSearch className="searchIcon" onClick={goToResultPage} />
-        <input
-          type="text"
-          onKeyUp={(e) => {
-            e.keyCode === 13 && goToResultPage();
-          }}
-          onChange={updateInputValue}
-          value={inputValue}
-          placeholder={
-            type === "all"
-              ? "검색어를 입력하세요."
-              : type === "title"
-              ? "제목 검색"
-              : type === "author"
-              ? "저자명 검색"
-              : type === "publisher"
-              ? "출판사명 검색"
-              : "검색어를 입력하세요."
-          }
-        />
+        <FaSearch className="searchIcon" onClick={onSubmitHandler} />
+        <form onSubmit={onSubmitHandler}>
+          <input
+            type="text"
+            onChange={updateInputValue}
+            value={inputValue}
+            placeholder={
+              type === "all"
+                ? "검색어를 입력하세요."
+                : type === "title"
+                ? "제목 검색"
+                : type === "author"
+                ? "저자명 검색"
+                : type === "publisher"
+                ? "출판사명 검색"
+                : "검색어를 입력하세요."
+            }
+          />
+        </form>
         <IoIosCloseCircle className="closeIcon" onClick={deleteInputValue} />
       </InputArea>
     </InnerInputSection>
@@ -79,7 +83,7 @@ const InnerInputSection = styled.div`
 `;
 
 const FilterType = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 22px;
 
   select {
     width: 75px;
@@ -106,17 +110,19 @@ const InputArea = styled.div`
     color: rgb(153, 153, 153);
     cursor: pointer;
   }
-
-  input {
-    z-index: -1;
+  form {
     display: inline-block;
-    width: 1180px;
-    height: 32px;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 32px;
-    margin-left: 10px;
-    color: rgb(51, 51, 51);
+
+    input {
+      z-index: 100;
+      width: 1180px;
+      height: 32px;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 32px;
+      margin-left: 10px;
+      color: rgb(51, 51, 51);
+    }
   }
 
   .closeIcon {
