@@ -6,7 +6,7 @@ import { FaCheck } from "react-icons/fa";
 export default function PriceCard(props) {
   return (
     <EachPriceCard data-aos="zoom-in">
-      <CardHeader>
+      <CardHeader color={props.color} backgroundColor={props.backgroundColor}>
         <p>
           <i>❝</i>
           <br />
@@ -31,7 +31,7 @@ export default function PriceCard(props) {
           <br />
           <span>연 </span>
           <span>{props.yearPrice} </span>
-          <strike>{props.originalPrice}</strike>
+          <strike color={props.color}>{props.originalPrice}</strike>
         </p>
       </CardHeader>
       <CardBody>
@@ -60,8 +60,20 @@ export default function PriceCard(props) {
         </dl>
       </CardBody>
       <div className="buttons">
-        <PriceCardBtn month>월 정기구독</PriceCardBtn>
-        <PriceCardBtn>연 정기구독</PriceCardBtn>
+        <PriceCardBtn
+          month={props.month}
+          color={props.color}
+          onClick={props.monthlyPlan}
+        >
+          월 정기구독
+        </PriceCardBtn>
+        <PriceCardBtn
+          year={props.year}
+          color={props.color}
+          onClick={props.annualPlan}
+        >
+          연 정기구독
+        </PriceCardBtn>
       </div>
     </EachPriceCard>
   );
@@ -91,7 +103,8 @@ const EachPriceCard = styled(Card)`
 const CardHeader = styled.div`
   height: 424px;
   padding: 16px 8px 16px 16px;
-  background-color: rgb(249, 235, 96);
+  color: ${(props) => props.color};
+  background-color: ${(props) => props.backgroundColor};
   border-radius: 10px 10px 0 0;
 
   p {
@@ -130,7 +143,8 @@ const CardHeader = styled.div`
       }
 
       strike {
-        color: rgba(52, 52, 52, 0.5);
+        color: ${(props) => props.color};
+        opacity: 0.5;
         font-size: 24px;
       }
     }
@@ -169,8 +183,9 @@ const CardBody = styled.div`
 `;
 
 const PriceCardBtn = styled.button`
-  background-color: ${({ month }) =>
-    month ? "rgb(249, 235, 96)" : "rgb(243, 191, 6)"};
+  color: ${(props) => props.color};
+  background-color: ${(props) =>
+    props.month ? props.month : props.year ? props.year : "rgb(243,191,6)"};
   width: 100%;
   height: 40px;
   margin: 8px 0 16px;
@@ -178,7 +193,6 @@ const PriceCardBtn = styled.button`
   font-size: 14px;
   text-align: center;
   line-height: 40px;
-  color: rgb(52, 52, 52);
   border-radius: 50px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   cursor: pointer;

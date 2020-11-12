@@ -25,12 +25,13 @@ const TitleBox = styled.div`
   left: 20px;
   font-size: 70px;
   font-weight: 900;
+  font-family: "Noto Serif KR", Serif;
 `;
 
 const Title = styled(TitleBox)`
   margin-bottom: 15px;
   font-size: 76px;
-  font-weight: 800;
+  font-weight: 900;
   line-height: 1.5;
   letter-spacing: 10px;
 `;
@@ -39,6 +40,7 @@ const SubTitle = styled(TitleBox)`
   font-size: 22px;
   font-weight: 800;
   line-height: 1.5;
+  font-weight: 900;
   letter-spacing: 4px;
 
   span {

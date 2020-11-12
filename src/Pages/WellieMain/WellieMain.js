@@ -1,26 +1,47 @@
 import React, { useState, useEffect } from "react";
+import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 import TextBox from "./Components/TextBox";
 import PriceCard from "./Components/PriceCard";
 import AOS from "aos";
+import {
+  BEAPIROOT,
+  LOCALHOST,
+  EbookSubscribeOptionItems,
+  PaperbackSubscribeOptionItems,
+} from "../../config";
 import "aos/dist/aos.css";
 import { FaHeadphones } from "react-icons/fa";
 import { FaMobileAlt } from "react-icons/fa";
 
 const WellieMain = () => {
+  const history = useHistory();
   const [leftStrings, setLeftStrings] = useState([]);
   const [covers, setCovers] = useState([]);
   const [priceCardString, setPriceCardString] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/data/dataOfMain.json`)
+    fetch(`${BEAPIROOT}/book`)
       .then((res) => res.json())
       .then((res) => {
-        setLeftStrings(res.LEFTSTRINGS);
-        setCovers(res.BOOKCOVERS);
-        setPriceCardString(res.PRICECARDSTRINGS);
+        setCovers(res.MESSAGE);
       })
       .catch((err) => console.log("Catched errors!!", err));
+  }, []);
+
+  useEffect(() => {
+    fetch(`${LOCALHOST}/data/dataOfMain.json`)
+      .then((res) => res.json())
+      .then(
+        (res) => {
+          console.log("res", res);
+          setLeftStrings(res.LEFTSTRINGS);
+          setPriceCardString(res.PRICECARDSTRINGS);
+        },
+        () => {
+          console.log("에러!!!");
+        }
+      );
   }, []);
 
   useEffect(() => {
@@ -61,8 +82,10 @@ const WellieMain = () => {
       <CircleLogo>
         <img src="./images/logo_circle.png" alt="Circle logo of Wellie" />
       </CircleLogo>
-      <LoginButton>로그인</LoginButton>
-      <ProductButton>구독상품안내</ProductButton>
+      <LoginButton onClick={() => history.push(`/login`)}>로그인</LoginButton>
+      <ProductButton onClick={() => history.push(`/subscribe`)}>
+        구독상품안내
+      </ProductButton>
       <CloseToBooks>
         <div className="contents">
           <p>
@@ -122,9 +145,13 @@ const WellieMain = () => {
             </p>
           </div>
           <div data-aos="fade-up-left" className="booksBox">
-            {covers?.map(({ cover }) => {
+            {covers?.map(({ book_image }) => {
               return (
-                <img data-aos="fade-up-left" src={cover} alt="Book cover"></img>
+                <img
+                  data-aos="fade-up-left"
+                  src={book_image}
+                  alt="Book cover"
+                ></img>
               );
             })}
           </div>
@@ -146,6 +173,18 @@ const WellieMain = () => {
               <b>만화 콘텐츠</b>도<br />
               무제한으로 즐겨보세요!
             </p>
+          </div>
+          <div className="bookImages">
+            <img
+              data-aos="fade-down"
+              src={covers[41]?.book_image}
+              alt="Book Cover"
+            />
+            <img
+              data-aos="fade-down"
+              src={covers[43]?.book_image}
+              alt="Book Cover"
+            />
           </div>
         </div>
       </GenreContents>
@@ -176,7 +215,7 @@ const WellieMain = () => {
               </span>
             </div>
             <div className="contentsOfCard">
-              <img src={covers[0]?.cover} alt="Book cover"></img>
+              <img src={covers[38]?.book_image} alt="Book cover"></img>
               <img
                 src="https://files.mormonsud.net/wp-content/uploads/2016/09/two-people-debate.png"
                 alt="Speaking"
@@ -197,7 +236,7 @@ const WellieMain = () => {
               </span>
             </div>
             <div className="contentsOfCard">
-              <img src={covers[0]?.cover} alt="Book cover"></img>
+              <img src={covers[36]?.book_image} alt="Book cover"></img>
               <img
                 src="https://d3udu241ivsax2.cloudfront.net/common/images/company/brand/millieBookCard2Img.png"
                 alt="Chat Book example"
@@ -314,20 +353,78 @@ const WellieMain = () => {
             </div>
           </StringBox>
           <PriceWrap>
-            {priceCardString.map((eachCard) => {
-              return (
-                <PriceCard
-                  firstLineBold={eachCard?.firstLineBold}
-                  firstLineNormal={eachCard?.firstLineNormal}
-                  secondLineNormal={eachCard?.secondLineNormal}
-                  thirdLineBold={eachCard?.thirdLineBold}
-                  monthPrice={eachCard?.monthPrice}
-                  yearPrice={eachCard?.yearPrice}
-                  originalPrice={eachCard?.originalPrice}
-                  description1={eachCard?.description1}
-                />
-              );
-            })}
+            <PriceCard
+              firstLineBold={priceCardString[0]?.firstLineBold}
+              firstLineNormal={priceCardString[0]?.firstLineNormal}
+              secondLineNormal={priceCardString[0]?.secondLineNormal}
+              thirdLineBold={priceCardString[0]?.thirdLineBold}
+              monthPrice={priceCardString[0]?.monthPrice}
+              yearPrice={priceCardString[0]?.yearPrice}
+              originalPrice={priceCardString[0]?.originalPrice}
+              description1={priceCardString[0]?.description1}
+              color="rgb(0, 0, 0)"
+              backgroundColor="rgb(249, 235, 96)"
+              month="rgb(249, 235, 96)"
+              year="rgb(243,191,6)"
+              monthlyPlan={() =>
+                history.push({
+                  pathname: `/payments`,
+                  state: {
+                    period: "1개월",
+                    price: 9500,
+                    type: "전자책",
+                    discountMessage: "첫 달 무료*",
+                  },
+                })
+              }
+              annualPlan={() =>
+                history.push({
+                  pathname: `/payments`,
+                  state: {
+                    period: "1년",
+                    price: 95000,
+                    type: "전자책",
+                    discountMessage: "2개월 무료",
+                  },
+                })
+              }
+            />
+            <PriceCard
+              firstLineBold={priceCardString[1]?.firstLineBold}
+              firstLineNormal={priceCardString[1]?.firstLineNormal}
+              secondLineNormal={priceCardString[1]?.secondLineNormal}
+              thirdLineBold={priceCardString[1]?.thirdLineBold}
+              monthPrice={priceCardString[1]?.monthPrice}
+              yearPrice={priceCardString[1]?.yearPrice}
+              originalPrice={priceCardString[1]?.originalPrice}
+              description1={priceCardString[1]?.description1}
+              color="rgb(255, 255, 255)"
+              backgroundColor="rgb(106,49,164)"
+              month="rgb(168,125,223)"
+              year="rgb(106,49,164)"
+              monthlyPlan={() =>
+                history.push({
+                  pathname: `/payments`,
+                  state: {
+                    period: "1개월",
+                    price: 15500,
+                    type: "종이책",
+                    discountMessage: "첫 달 무료*",
+                  },
+                })
+              }
+              annualPlan={() =>
+                history.push({
+                  pathname: `/payments`,
+                  state: {
+                    period: "1년",
+                    price: 177000,
+                    type: "종이책",
+                    discountMessage: "2개월 무료",
+                  },
+                })
+              }
+            />
           </PriceWrap>
         </div>
       </LastView>
@@ -404,7 +501,7 @@ const CloseToBooks = styled(Section)`
       font-size: 55px;
       line-height: 1.3;
       position: absolute;
-      top: 10%;
+      top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
       display: block;
@@ -422,25 +519,25 @@ const CloseToBooks = styled(Section)`
         position: absolute;
         width: 820px;
         left: -120px;
-        top: -120px;
+        top: 60px;
       }
       #shelf2 {
         position: absolute;
         width: 820px;
         right: -240px;
-        top: -270px;
+        top: -90px;
       }
       #shelf3 {
         position: absolute;
         width: 820px;
         right: -100px;
-        top: 30px;
+        top: 210px;
       }
     }
 
     .mark {
       position: absolute;
-      bottom: 16%;
+      bottom: 6%;
       left: 50%;
       transform: translate(-50%, -50%);
       line-height: 1.5;
@@ -464,6 +561,7 @@ const ManyBooks = styled(Section)`
     margin: 0 auto;
 
     .detailParagraph {
+      color: transparent;
       top: 120px;
       left: 40px;
       transform: translateY(63.231px);
@@ -488,6 +586,7 @@ const ManyBooks = styled(Section)`
 `;
 
 const GenreContents = styled(Section)`
+  position: relative;
   background-color: rgb(52, 52, 52);
   color: rgb(255, 255, 255);
   height: 1024px;
@@ -509,6 +608,24 @@ const GenreContents = styled(Section)`
       }
       b {
         font-weight: 600;
+      }
+    }
+
+    .bookImages {
+      img {
+        padding-right: 20px;
+        width: 370px;
+
+        &:first-child {
+          position: absolute;
+          top: 16%;
+          right: 10%;
+        }
+        &:last-child {
+          position: absolute;
+          top: 29%;
+          right: 34%;
+        }
       }
     }
   }
@@ -716,6 +833,7 @@ const StringBox = styled.div`
   font-size: 70px;
   font-weight: 900;
   color: white;
+  font-family: "Noto-serif", serif;
 
   .smallString {
     font-size: 22px;
@@ -807,7 +925,7 @@ const PriceWrap = styled.div`
   margin: 30% 0 0;
   display: flex;
   position: absolute;
-  top: -27%;
+  bottom: 5%;
   right: 5%;
   width: 50%;
 `;
