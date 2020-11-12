@@ -7,7 +7,6 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   body{
-    padding-top: 64px; 
     box-sizing: border-box;
     font-family: 'Noto Sans KR', 'Noto Serif KR', 'sans-serif', 'serif';
   }
