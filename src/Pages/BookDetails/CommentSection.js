@@ -1,7 +1,7 @@
 import { Component, useEffect, useState } from "react";
 import styled from "styled-components";
 import Comment from "./Components/Comment";
-import { DEFAULT_IMG } from "../../config";
+import { API_BOOK, DEFAULT_IMG } from "../../config";
 
 function CommentSection() {
   const [comments, setComments] = useState([]);
@@ -49,7 +49,7 @@ function CommentSection() {
   };
 
   useEffect(() => {
-    fetch("http://10.58.7.192:8000/book/1/comment")
+    fetch(`${API_BOOK}/1/comment`)
       .then((res) => res.json())
       .then((res) => setComments(res.COMMENT));
   }, []);
