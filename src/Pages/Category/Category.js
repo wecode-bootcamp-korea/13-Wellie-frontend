@@ -13,9 +13,10 @@ const optionalCategory = {
 export default function Category(props) {
   const history = useHistory();
   const [subcategories, setSubcategories] = useState([]);
+  console.log("subcategories", subcategories);
 
   useEffect(() => {
-    fetch(`${BEAPIROOT}/book/category/${optionalCategory.id}`)
+    fetch(`${BEAPIROOT}/book/category/${props.match.params.id}`)
       .then((res) => res.json())
       .then((res) => setSubcategories(res.subcategories));
   }, []);
@@ -109,7 +110,7 @@ const SubcategoryContainer = styled.div`
 `;
 
 const SubcategoryWrap = styled.div`
-  padding: 30px 0 20px;
+  padding: 30px 0 10px;
   position: relative;
   border-bottom: 1px solid rgb(238, 238, 238);
 
@@ -130,7 +131,9 @@ const SwiperWrap = styled.div`
 
 const Book = styled.span`
   margin-right: 10px;
+
   img {
-    height: 180px;
+    height: 170px;
+    padding-bottom: 10px;
   }
 `;

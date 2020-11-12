@@ -1,33 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { setSearchValue } from "../../store/actions/index";
 import { BEAPIROOT } from "../../config";
 import InnerInput from "./Components/InnerInput";
 import { FaSearch } from "react-icons/fa";
 
-export default function Search() {
+export default function SearchDefault(props) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     fetch(`${BEAPIROOT}/book/category`)
       .then((res) => res.json())
       .then((res) => {
-        console.log("res.MESSAGE >>>", res.MESSAGE);
-        setCategories(res.categories);
+        dispatch(setCategories(res.categories));
       })
       .catch((err) => console.log("Catched errors >>> ", err));
   }, []);
 
   function goToSubCatePage(id, name) {
     history.push({
-      pathname: `/search/category?category_id=${id}`,
+      pathname: `/category/${id}`,
       name: name,
     });
   }
 
   return (
-    <SearchPage>
+    <SearchDefaultPage>
       <div className="innerSearch">
         <InputWrap>
           <InnerInput />
@@ -39,12 +41,10 @@ export default function Search() {
               <li>
                 <FaSearch className="searchIcon" />
                 <span
-                  onClick={() =>
-                    history.push({
-                      pathname: `/search/result/최준?type=all&sort=keyword`,
-                      searchValue: { inputValue: "최준" },
-                    })
-                  }
+                  onClick={() => {
+                    dispatch(setSearchValue("최준"));
+                    history.push(`/search_result/최준?type=all&sort=keyword`);
+                  }}
                 >
                   지금 주목 받는
                   <strong> 최 준 작가</strong>
@@ -53,12 +53,10 @@ export default function Search() {
               <li>
                 <FaSearch className="searchIcon" />
                 <span
-                  onClick={() =>
-                    history.push({
-                      pathname: `/search/result/개발?type=all&sort=keyword`,
-                      searchValue: { inputValue: "개발" },
-                    })
-                  }
+                  onClick={() => {
+                    dispatch(setSearchValue("개발"));
+                    history.push(`/search_result/개발?type=all&sort=keyword`);
+                  }}
                 >
                   세상을 움직이는
                   <strong> 개발자의 철학</strong>
@@ -67,29 +65,25 @@ export default function Search() {
               <li>
                 <FaSearch className="searchIcon" />
                 <span
-                  onClick={() =>
-                    history.push({
-                      pathname: `/search/result/아무튼?type=all&sort=keyword`,
-                      searchValue: { inputValue: "아무튼" },
-                    })
-                  }
+                  onClick={() => {
+                    dispatch(setSearchValue("뽀로로"));
+                    history.push(`/search_result/뽀로로?type=all&sort=keyword`);
+                  }}
                 >
-                  좋아하는 게 너무 많아,
-                  <strong> 아무튼 시리즈</strong>
+                  노는 게 제일 좋아,
+                  <strong> 뽀로로 시리즈</strong>
                 </span>
               </li>
               <li>
                 <FaSearch className="searchIcon" />
                 <span
-                  onClick={() =>
-                    history.push({
-                      pathname: `/search/result/프로그래밍?type=all&sort=keyword`,
-                      searchValue: { inputValue: "프로그래밍" },
-                    })
-                  }
+                  onClick={() => {
+                    dispatch(setSearchValue("심리학"));
+                    history.push(`/search_result/심리학?type=all&sort=keyword`);
+                  }}
                 >
-                  누구나 쉽게 하는
-                  <strong> 프로그래밍</strong>
+                  어떻게 하면 소통을 잘할 수 있을까,
+                  <strong> 심리학 모음전</strong>
                 </span>
               </li>
             </ul>
@@ -118,11 +112,11 @@ export default function Search() {
           </ul>
         </CategoryContainer>
       </div>
-    </SearchPage>
+    </SearchDefaultPage>
   );
 }
 
-const SearchPage = styled.section`
+const SearchDefaultPage = styled.section`
   width: 1280px;
   padding: 0 16px;
   margin: 64px auto 0;
@@ -135,7 +129,7 @@ const InputWrap = styled.section`
 
 const RecommendWrap = styled.section`
   position: relative;
-  padding-top: 32px;
+  padding-top: 64px;
   margin-bottom: 25px;
 
   h2 {
