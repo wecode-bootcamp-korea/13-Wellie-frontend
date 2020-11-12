@@ -27,7 +27,7 @@ export function BookShelf({
             </SortingBtns>
           </li>
           <li>
-            <SortingBtns onClick={() => history.push("/MyBooksManager")}>
+            <SortingBtns onClick={() => history.push("/my_books_manager")}>
               <BsPlusCircle />
             </SortingBtns>
           </li>

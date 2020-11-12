@@ -6,7 +6,7 @@ import { AiOutlineBell } from "react-icons/ai";
 const controlActivation = [
   { id: 1, path: "/today", content: "투데이" },
   { id: 2, path: "/search", content: "검색" },
-  { id: 3, path: "/", content: "피드" },
+  { id: 3, path: "/feeds", content: "피드" },
   { id: 4, path: "/my_books", content: "내서재" },
   { id: 5, path: "/", content: "관리" },
 ];

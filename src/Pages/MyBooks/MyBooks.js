@@ -139,7 +139,7 @@ function MyBooks() {
   };
 
   return (
-    <>
+    <MyBooksWrapper>
       {isOpen && <Modal setIsOpen={setIsOpen} bookShelfCase={bookShelfCase} />}
       <FilterModal
         filterListOpen={filterListOpen}
@@ -203,9 +203,13 @@ function MyBooks() {
         </CardList>
       </MenuTab>
       {content[menuTab]}
-    </>
+    </MyBooksWrapper>
   );
 }
+
+const MyBooksWrapper = styled.div`
+  padding-top: 64px;
+`;
 
 const BgEditWrap = styled.div`
   position: absolute;

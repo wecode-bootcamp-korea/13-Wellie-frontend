@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { positionCenter } from "../../../Styles/Theme";
 
@@ -8,6 +9,7 @@ export function BookShelfList({
   handleClickBookShelfList,
   handleClickBookShelfDelete,
 }) {
+  const history = useHistory();
   const [modify, setModify] = useState(0);
   const [modifyToggle, setModifyToggle] = useState(false);
 
@@ -26,7 +28,16 @@ export function BookShelfList({
           </EditBtn>
           <Modify active={item.id === modify && modifyToggle}>
             <ul>
-              <li>수정</li>
+              <li
+                onClick={() => {
+                  history.push({
+                    pathname: "/my_books_manager",
+                    state: { id: item.id },
+                  });
+                }}
+              >
+                수정
+              </li>
               <li onClick={() => handleClickBookShelfDelete(item.id)}>삭제</li>
             </ul>
           </Modify>
@@ -148,6 +159,10 @@ const Modify = styled.div`
       border: 1px solid #ddd;
       font-size: 12px;
       color: #333;
+
+      a {
+        color: #333;
+      }
     }
 
     li:hover {
