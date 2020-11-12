@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { AiOutlineBell } from "react-icons/ai";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { AiOutlineBell } from "react-icons/ai";
 
 const controlActivation = [
   { id: 1, path: "/Today", content: "투데이" },
@@ -14,9 +14,21 @@ const controlActivation = [
 function Nav() {
   const [menu, setMenu] = useState(1);
   const history = useHistory();
+  const { pathname } = useLocation();
+  const pathList = [
+    "/",
+    "/login",
+    "/signup",
+    "/phone_validate",
+    "/set_account",
+    "/subscribe",
+    "/payments",
+    "/category",
+  ];
+  const isNavActive = !pathList.some((currentPath) => pathname === currentPath);
 
   return (
-    <NavBar>
+    <NavBar isNavActive={isNavActive}>
       <CommonContainer>
         <MainMenu>
           <Link to="/">
@@ -71,13 +83,14 @@ const BlackBtn = styled.button`
 `;
 
 const NavBar = styled.nav`
+  display: ${({ isNavActive }) => (isNavActive ? "block" : "none")};
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
   background: #fff;
   border-bottom: 1px solid #eee;
-  z-index: 99;
+  z-index: 9000;
 `;
 
 const CommonContainer = styled.div`
