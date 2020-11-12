@@ -16,7 +16,6 @@ const TYPES = [
 export default function InnerInput(props) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const searchValue = useSelector((store) => store.searchReducer.searchValue);
   const type = useSelector((store) => store.searchReducer.type);
   const sort = useSelector((store) => store.searchReducer.sort);
   const [inputValue, setInputValue] = useState("");
