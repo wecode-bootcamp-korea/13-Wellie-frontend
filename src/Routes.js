@@ -19,9 +19,8 @@ import { ThemeProvider } from "styled-components";
 import SearchDefault from "./Pages/Search/SearchDefault";
 import SearchResult from "./Pages/Search/SearchResult";
 import { theme } from "./Styles/Theme";
-import PhoneValidate from "./Pages/Signup/components/PhoneValidate";
 
-export default class Routes extends React.Component {
+class Routes extends React.Component {
   render() {
     return (
       <React.Fragment>
