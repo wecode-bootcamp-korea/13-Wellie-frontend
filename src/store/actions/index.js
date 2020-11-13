@@ -12,6 +12,12 @@ export const setSort = (sort) => ({
   type: "SET_SORT",
   payload: sort,
 });
+
+export const setOffset = (offset) => ({
+  type: "SET_OFFSET",
+  payload: offset,
+});
+
 export const setInputValue = (inputValue) => ({
   type: "SET_INPUTVALUE",
   payload: inputValue,

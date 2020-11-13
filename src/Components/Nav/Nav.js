@@ -30,7 +30,7 @@ function Nav() {
     <NavBar isNavActive={isNavActive}>
       <CommonContainer>
         <MainMenu>
-          <Link to="/">
+          <Link to="/home">
             <img src="/images/gnb_logo.png" alt="윌리의 서재 로고" />
           </Link>
           <ul>

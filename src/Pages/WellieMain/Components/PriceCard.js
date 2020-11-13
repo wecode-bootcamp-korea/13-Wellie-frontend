@@ -48,7 +48,7 @@ export default function PriceCard(props) {
             <span>
               <FaCheck />
             </span>
-            밀리 단독 콘텐츠
+            윌리 단독 콘텐츠
             <span> 오디오북, 챗북</span>
           </dt>
           <dt>

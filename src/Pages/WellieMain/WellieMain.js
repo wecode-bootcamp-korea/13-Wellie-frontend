@@ -253,7 +253,7 @@ const WellieMain = () => {
             <p>
               국내 최고 작가진이 집필한
               <br />
-              <b>밀리 오리지널</b> 콘텐츠를
+              <b>윌리 오리지널</b> 콘텐츠를
             </p>
             <br />
             <p>
@@ -265,7 +265,7 @@ const WellieMain = () => {
           <GiftWrapper>
             <Books data-aos="zoom-in-up">
               <div className="stringBox">
-                <p>밀리 오리지널 한정판 종이책</p>
+                <p>윌리 오리지널 한정판 종이책</p>
                 <p className="earth">
                   <span>Vol.08</span>
                   <span>《 지구 끝의 온실 》</span>
@@ -338,7 +338,7 @@ const WellieMain = () => {
         <div className="contents">
           <StringBox>
             <div className="smallString">
-              <p>밀리의 서재를</p>
+              <p>윌리의 서재를</p>
               <p>정기구독하고</p>
             </div>
             <div className="bigString">
@@ -362,27 +362,37 @@ const WellieMain = () => {
               backgroundColor="rgb(249, 235, 96)"
               month="rgb(249, 235, 96)"
               year="rgb(243,191,6)"
-              monthlyPlan={() =>
-                history.push({
-                  pathname: `/payments`,
-                  state: {
-                    period: "1개월",
-                    price: 9500,
-                    type: "전자책",
-                    discountMessage: "첫 달 무료*",
-                  },
-                })
+              monthlyPlan={
+                () => {
+                  alert("로그인 후 결제 신청이 가능합니다.");
+                  history.push(`/login`);
+                }
+                // () =>
+                // history.push({
+                //   pathname: `/login`,
+                //   state: {
+                //     period: "1개월",
+                //     price: 9500,
+                //     type: "전자책",
+                //     discountMessage: "첫 달 무료*",
+                //   },
+                // })
               }
-              annualPlan={() =>
-                history.push({
-                  pathname: `/payments`,
-                  state: {
-                    period: "1년",
-                    price: 95000,
-                    type: "전자책",
-                    discountMessage: "2개월 무료",
-                  },
-                })
+              annualPlan={
+                () => {
+                  alert("로그인 후 결제 신청이 가능합니다.");
+                  history.push(`/login`);
+                }
+                // () =>
+                // history.push({
+                //   pathname: `/login`,
+                //   state: {
+                //     period: "1년",
+                //     price: 95000,
+                //     type: "전자책",
+                //     discountMessage: "2개월 무료",
+                //   },
+                // })
               }
             />
             <PriceCard
@@ -398,27 +408,37 @@ const WellieMain = () => {
               backgroundColor="rgb(106,49,164)"
               month="rgb(168,125,223)"
               year="rgb(106,49,164)"
-              monthlyPlan={() =>
-                history.push({
-                  pathname: `/payments`,
-                  state: {
-                    period: "1개월",
-                    price: 15500,
-                    type: "종이책",
-                    discountMessage: "첫 달 무료*",
-                  },
-                })
+              monthlyPlan={
+                () => {
+                  alert("로그인 후 결제 신청이 가능합니다.");
+                  history.push(`/login`);
+                }
+                // () =>
+                //   history.push({
+                //     pathname: `/login`,
+                //     state: {
+                //       period: "1개월",
+                //       price: 15500,
+                //       type: "종이책",
+                //       discountMessage: "첫 달 무료*",
+                //     },
+                //   }))
               }
-              annualPlan={() =>
-                history.push({
-                  pathname: `/payments`,
-                  state: {
-                    period: "1년",
-                    price: 177000,
-                    type: "종이책",
-                    discountMessage: "2개월 무료",
-                  },
-                })
+              annualPlan={
+                () => {
+                  alert("로그인 후 결제 신청이 가능합니다.");
+                  history.push(`/login`);
+                }
+                // () =>
+                // history.push({
+                //   pathname: `/login`,
+                //   state: {
+                //     period: "1년",
+                //     price: 177000,
+                //     type: "종이책",
+                //     discountMessage: "2개월 무료",
+                //   },
+                // })
               }
             />
           </PriceWrap>

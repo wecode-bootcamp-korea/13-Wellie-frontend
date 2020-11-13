@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { setBooks, setSort } from "../../store/actions/index";
+import { setBooks, setSort, setOffset } from "../../store/actions/index";
 import { BEAPIROOT } from "../../config";
 import InnerInput from "./Components/InnerInput";
 import { FaList } from "react-icons/fa";
@@ -20,12 +20,12 @@ export default function SearchResult(props) {
   const searchValue = useSelector((store) => store.searchReducer.searchValue);
   const type = useSelector((store) => store.searchReducer.type);
   const sort = useSelector((store) => store.searchReducer.sort);
+  const offset = useSelector((store) => store.searchReducer.offset);
   const books = useSelector((store) => store.searchReducer.books);
 
   useEffect(() => {
     fetch(`${BEAPIROOT}/book/search/${searchValue}?type=${type}&sort=${sort}`)
       .then((res) => res.json())
-
       .then((res) => {
         if (typeof res.MESSAGE == "object") {
           dispatch(setBooks(res.MESSAGE));
@@ -42,6 +42,7 @@ export default function SearchResult(props) {
 
   const changeSort = (e) => {
     dispatch(setSort(e.target.value));
+    dispatch(setOffset(0));
   };
 
   return (
