@@ -114,7 +114,7 @@ export default function Payments() {
         <img
           src="images/gnb_logo_yellow.png"
           alt="logo"
-          onClick={() => history.push("/today")}
+          onClick={() => history.push("/home")}
         />
       </Header>
       <PaymentsContainer>

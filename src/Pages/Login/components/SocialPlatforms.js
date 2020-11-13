@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { KakaoLogin } from "./SocialLoginComponents/KakaoLogin";
-import GoogleLogin from "./SocialLoginComponents/GoogleLogin";
 import {
   socialLogosItems,
   socialLogoSpecs,
@@ -17,14 +16,17 @@ function SocialPlatforms() {
   return (
     <SocialLoginContainerUl>
       <KakaoLogin />
-      <GoogleLogin />
-      {/* {socialList?.map((item) => {
+      {socialList?.map((item) => {
         return (
           <SocialLogoItem name={item.name} color={item.color} key={item.id}>
-            <img name={item.name} src={item.src} alt={`$login with {item.name}`} />
+            <img
+              name={item.name}
+              src={item.src}
+              alt={`$login with {item.name}`}
+            />
           </SocialLogoItem>
         );
-      })} */}
+      })}
     </SocialLoginContainerUl>
   );
 }

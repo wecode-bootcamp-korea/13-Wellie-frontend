@@ -27,8 +27,7 @@ function BookDetails(props) {
     fetch(API_SAVE_BOOK, {
       method: "POST",
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOH0.db7caCPE0qtvqLxoaMM4S3Fx67aE_VW6aNB-sBKF6oE",
+        Authorization: localStorage.getItem("Authorization"),
       },
       body: JSON.stringify({
         book_id: data.book_id,
@@ -50,8 +49,7 @@ function BookDetails(props) {
   useEffect(() => {
     fetch(`${API_BOOK}/${props.match.params.id}`, {
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOH0.db7caCPE0qtvqLxoaMM4S3Fx67aE_VW6aNB-sBKF6oE",
+        Authorization: localStorage.getItem("Authorization"),
       },
     })
       .then((res) => res.json())
@@ -63,8 +61,7 @@ function BookDetails(props) {
 
     fetch(`${API_BOOK}/${props.match.params.id}/comment`, {
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOH0.db7caCPE0qtvqLxoaMM4S3Fx67aE_VW6aNB-sBKF6oE",
+        Authorization: localStorage.getItem("Authorization"),
       },
     })
       .then((res) => res.json())

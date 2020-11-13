@@ -1,10 +1,10 @@
 export const socialLogosItems = [
-  {
-    id: 1,
-    name: "kakao",
-    src: "./images/Login/kakao_logo.png",
-    alt: "kakao login",
-  },
+  // {
+  //   id: 1,
+  //   name: "kakao",
+  //   src: "./images/Login/kakao_logo.png",
+  //   alt: "kakao login",
+  // },
   {
     id: 2,
     name: "naver",
