@@ -8,12 +8,15 @@ import Swal from "sweetalert2";
 
 export function KakaoLogin() {
   const history = useHistory();
-  useEffect(() => {
-    Kakao.init("27eda77757f6ae91d23a2e90cad22c6a");
-  }, []);
+  // useEffect(() => {
+  //   if (!Kakao.isInitialized) {
+  //     Kakao.init("27eda77757f6ae91d23a2e90cad22c6a");
+  //   }
+  // }, []);
 
   console.log(Kakao.isInitialized());
   const loginWithKakao = () => {
+    Kakao.init("27eda77757f6ae91d23a2e90cad22c6a");
     Kakao.Auth.login({
       success: function (authObj) {
         const kakaoAccessToken = authObj.access_token;
@@ -34,12 +37,12 @@ export function KakaoLogin() {
               Swal.fire({
                 icon: "success",
                 iconColor: "rgba(164, 81, 247, 1)",
-                text: "Wellie 멤버가 되신 것을 환영합니다!",
+                text: "Welcome to Wellie",
                 showConfirmButton: false,
                 timer: 1700,
               });
               setTimeout(() => {
-                history.push("/search");
+                history.push("/home");
               }, 2000);
             } else if (data.MESSAGE === "Signup_First") {
               Swal.fire({
