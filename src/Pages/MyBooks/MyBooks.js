@@ -157,7 +157,8 @@ function MyBooks() {
         <UserInfo>
           <UserProfile>
             <div>
-              <img src={myBooksInfo?.profile} alt="유저 기본 아이콘" />
+              {/* <img src={myBooksInfo?.profile} alt="유저 기본 아이콘" /> */}
+              <img src="/images/MyBooks/user.png" alt="유저 기본 아이콘" />
             </div>
             <MyBookName>{myBooksInfo?.myBooksName}</MyBookName>
             <UserName>{myBooksInfo?.userName}</UserName>
