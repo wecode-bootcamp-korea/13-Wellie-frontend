@@ -30,7 +30,6 @@
 - Slick (library)
 - ESLint, Prettier
 - Git(git rebase), GitHub
-- Trello
 
 #### Back-end
 
