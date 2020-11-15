@@ -24,6 +24,7 @@
 - Styled Component
 - Kakao API (for social login)
 - 이니시스 API (for online payment)
+- Sweetalert2 (alert modals)
 - AOS (library)
 - Slick (library)
 - Git,GitHub
