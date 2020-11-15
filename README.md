@@ -18,7 +18,6 @@
 #### Front-end
 
 - HTML
-- CSS, Sass
 - JavaScript ES6+
 - React (CRA, Router, Hooks)
 - Redux
