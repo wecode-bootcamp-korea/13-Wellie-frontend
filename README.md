@@ -40,5 +40,5 @@
 
 - 백은진 : WellieMain 페이지, Search 페이지, Category 페이지
 - 이동훈 : Login 페이지, Signup 페이지, Payment 페이지
-- 최하늘 : BookDetails 페이지
+- 최하늘 : BookDetails 페이지, E-book viewer
 - 홍효정 : Nav bar, MyBooks, MyBooksManager 페이지
