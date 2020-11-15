@@ -22,12 +22,13 @@
 - React (CRA, Router, Hooks)
 - Redux
 - Styled Component
-- Kakao API (for social login)
-- 이니시스 API (for online payment)
+- Kakao Login JavaScript SDK
+- Twilio API (SMS verification)
+- IMPort API (payment)
 - Sweetalert2 (alert modals)
 - AOS (library)
 - Slick (library)
-- Git,GitHub
+- Git(git rebase), GitHub
 
 #### Back-end
 
