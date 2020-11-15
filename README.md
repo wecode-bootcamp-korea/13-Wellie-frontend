@@ -3,7 +3,7 @@
 
 # Wellie
 
-#### 안녕하세요.국내 최대 독서 플랫폼 밀리의서재를 클론한 윌리의서재 팀입니다.
+#### 안녕하세요. 국내 최대 독서 플랫폼 밀리의서재를 클론한 윌리의서재 Team Wellie 입니다.
 
 ## 팀원
 
@@ -41,6 +41,6 @@
 ## 구현한 페이지 (혹은 컴포넌트)
 
 - 백은진 : WellieMain 페이지, Search 페이지, Category 페이지
-- 이동훈 : Login 페이지, Signup 페이지, Payment 페이지
+- 이동훈 : Login 페이지, Signup 페이지, Payments 페이지
 - 최하늘 : BookDetails 페이지, E-book viewer
 - 홍효정 : Nav bar, MyBooks, MyBooksManager 페이지
