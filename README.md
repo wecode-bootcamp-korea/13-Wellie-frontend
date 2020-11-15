@@ -1,4 +1,5 @@
-<img src="https://images.velog.io/images/jeanbaek/post/209ce7c2-0dea-4965-af57-ddf00344e11b/logo_yellow.png" style="display: block; border: 1px solid red;"/>
+<img src="https://images.velog.io/images/jeanbaek/post/209ce7c2-0dea-4965-af57-ddf00344e11b/logo_yellow.png"/>
+<img src="https://images.velog.io/images/jeanbaek/post/3619f200-4a8f-4b8e-a89c-2aa34a24d0b4/wellie_team.png"/>
 
 # Wellie
 
