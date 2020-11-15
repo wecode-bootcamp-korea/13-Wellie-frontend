@@ -28,6 +28,7 @@
 - Sweetalert2 (alert modals)
 - AOS (library)
 - Slick (library)
+- ESLint, Prettier
 - Git(git rebase), GitHub
 
 #### Back-end
