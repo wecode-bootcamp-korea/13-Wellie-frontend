@@ -2,6 +2,7 @@ const INITIAL_STATE = {
   books: null,
   type: "all",
   sort: "keyword",
+  offset: 0,
   searchValue: null,
   categories: null,
 };
@@ -14,6 +15,8 @@ const searchReducer = (state = INITIAL_STATE, action) => {
       return { ...state, type: action.payload };
     case searchTypes.SET_SORT:
       return { ...state, sort: action.payload };
+    case searchTypes.SET_OFFSET:
+      return { ...state, offset: action.payload };
     case searchTypes.SET_SEARCHVALUE:
       return { ...state, searchValue: action.payload };
     case searchTypes.SET_CATEGORIES:
@@ -27,6 +30,7 @@ const searchTypes = {
   SET_BOOKS: "SET_BOOKS",
   SET_TYPE: "SET_TYPE",
   SET_SORT: "SET_SORT",
+  SET_OFFSET: "SET_OFFSET",
   SET_SEARCHVALUE: "SET_SEARCHVALUE",
   SET_CATEGORIES: "SET_CATEGORIES",
 };
